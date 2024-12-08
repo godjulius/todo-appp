@@ -1,0 +1,52 @@
+:root {
+  --primary: #b9d9fc;
+  --primary-hover: #5c278b;
+  --secondary: #39a2f1;
+  --secondary-hover: #cdb0e9;
+  --orange: #ff9800;
+  --orange1: #ffe9e8;
+  --orange1-hover: #f6dcdb;
+  --red: red;
+  --red1: #ff3b30;
+  --bs-body-color: #2c1f50;
+  --spacing: 4px;
+  --primary-background: #f8f8fa;
+  --gray: #7a7d9a;
+  --white-color: #ffffff;
+  --note-color: hsla(234, 14%, 54%, 1);
+  --border-color: #dfdee4;
+  --text-color: #44494d;
+  --background-color: #f2f3f8;
+  --count-color: #ff8186;
+  --background-color-v2: #f3f9ff;
+  --grey-ec-color: #ececec;
+  --grey-f7ff-color: #f7f7ff;
+  --grey-d1d1-color: #d1d1d1;
+  --footer-height: 82px;
+}
+
+.bg-primary {
+  background-color: var(--primary);
+  &:hover {
+    background-color: var(--primary-hover);
+  }
+}
+.text-secondary {
+  color: var(--orange);
+}
+
+.color-red {
+  color: var(--red);
+}
+
+.color-green {
+  color: #34c759;
+}
+
+.color-purple {
+  color: #7b35bb;
+}
+
+.color-orange {
+  color: #ff9800;
+}

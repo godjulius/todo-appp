@@ -1,0 +1,58 @@
+<app-header (toggleMenuEmitter)="toggleMenu(sidebar)"></app-header>
+<mat-sidenav-container autosize>
+  <mat-sidenav [ngClass]="!isCollapsed ? 'expanded' : isMobile ? 'expanded' : 'collapsed'" mode="side" [mode]="isMobile ? 'over' : 'side'" [opened]="isMobile ? 'false' : 'true'" class="sidenav-container">
+
+    <div class="account">
+      <mat-expansion-panel #sidebar (opened)="isCollapsed = false">
+        <mat-expansion-panel-header>
+<!--          <mat-panel-title> Me </mat-panel-title>-->
+          <mat-panel-description>
+            <mat-icon>account_circle</mat-icon>
+            @if(!isCollapsed) {
+              <span class="text-center">Nguyen Duong</span>
+            }
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div>
+          Gmai: duong&#64;gmail.com
+        </div>
+        <button (click)="logout()">
+          <mat-icon>exit_to_app</mat-icon>
+          Logout
+        </button>
+      </mat-expansion-panel>
+    </div>
+    <mat-nav-list class="side-item-container">
+      <button mat-list-item
+              matTooltip="Dash board"
+              matTooltipPosition="right"
+              class="side-item"
+      >
+        <span class="entry">
+          <mat-icon
+          >event</mat-icon>
+          <span *ngIf="!isCollapsed">Dashboard</span>
+        </span>
+      </button>
+
+    </mat-nav-list>
+    <mat-nav-list class="side-item-container">
+      <button mat-list-item
+              matTooltip="Dash board"
+              matTooltipPosition="right"
+              class="side-item"
+      >
+        <span class="entry">
+          <mat-icon
+          >event</mat-icon>
+          <span *ngIf="!isCollapsed">Dashboard</span>
+        </span>
+      </button>
+
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <h2>Content</h2>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

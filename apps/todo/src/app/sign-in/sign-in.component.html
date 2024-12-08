@@ -1,0 +1,150 @@
+<section class="vh-100">
+  <div class="container-fluid h-custom">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-md-9 col-lg-6 col-xl-5">
+        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
+             class="img-fluid" alt="Sample image">
+      </div>
+      <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+
+        <div class="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
+          <p class="lead fw-normal mb-0 me-3">{{ 'SIGN_IN_METHODS' | translate }}</p>
+          <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-floating mx-1">
+            <i class="fab fa-facebook-f"></i>
+          </button>
+
+          <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-floating mx-1">
+            <i class="fab fa-twitter"></i>
+          </button>
+
+          <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-floating mx-1">
+            <i class="fab fa-linkedin-in"></i>
+          </button>
+        </div>
+
+        <div class="divider d-flex align-items-center my-4">
+          <p class="text-center fw-bold mx-3 mb-0">Or</p>
+        </div>
+
+        <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="center">
+          <mat-tab [label]="'SIGN_IN' | translate">
+            <!--          signin form fields-->
+            <form [formGroup]="loginForm" class="mt-2 loggin-container">
+              <div class="mb-2">
+                <mat-form-field class="loggin-field" appearance="outline">
+                  <mat-label>{{ 'EMAIL' | translate }}</mat-label>
+                  <input type="email" matInput formControlName="email">
+                  @if (loginForm.get('email')?.hasError('required')) {
+                    <mat-error>Email is required</mat-error>
+                  }
+                  @if (loginForm.get('email')?.hasError('email')) {
+                    <mat-error>Invalid email</mat-error>
+                  }
+                </mat-form-field>
+              </div>
+              <div>
+                <mat-form-field class="loggin-field" appearance="outline">
+                  <mat-label>{{ 'PASSWORD' | translate }}</mat-label>
+                  <input type="password" matInput formControlName="password">
+                  @if (loginForm.get('password')?.hasError('required')) {
+                    <mat-error>Password is required</mat-error>
+                  }
+                </mat-form-field>
+              </div>
+              <div class="d-flex justify-content-between align-items-center">
+                <!-- Checkbox -->
+                <div class="form-check mb-0">
+                  <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3"/>
+                  <label class="form-check-label" for="form2Example3">
+                    Remember me
+                  </label>
+                </div>
+                <a href="#!" class="text-body">Forgot password?</a>
+              </div>
+
+              <div class="text-center text-lg-start mt-4 pt-2">
+                <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg"
+                        style="padding-left: 2.5rem; padding-right: 2.5rem;"
+                        (click)="signIn()"
+                        [disabled]="loginForm.invalid"
+                >Login
+                </button>
+                <p class="small fw-bold mt-2 pt-1 mb-0">Don't have an account? <a href="#!"
+                                                                                  class="link-danger">Register</a></p>
+              </div>
+
+            </form>
+          </mat-tab>
+          <mat-tab [label]="'SIGN_UP' | translate">
+            <!--          signup form fields-->
+            <form class="mt-2" [formGroup]="signupForm">
+              <div class="mb-2">
+                <mat-form-field class="loggin-field" appearance="outline">
+                  <mat-label>Email</mat-label>
+                  <input type="email" matInput formControlName="emailSignUp">
+                  @if (signupForm.get('emailSignUp')?.hasError('required')) {
+                    <mat-error>Email is required</mat-error>
+                  }
+                  @if (signupForm.get('emailSignUp')?.hasError('email')) {
+                    <mat-error>Invalid email</mat-error>
+                  }
+                </mat-form-field>
+              </div>
+              <div class="mb-2">
+                <mat-form-field class="loggin-field" appearance="outline">
+                  <mat-label>Password</mat-label>
+                  <input type="password" matInput formControlName="passwordSignUp">
+                  @if (signupForm.get('passwordSignUp')?.hasError('required')) {
+                    <mat-error>Password is required</mat-error>
+                  }
+                </mat-form-field>
+              </div>
+              <div>
+                <mat-form-field class="loggin-field" appearance="outline">
+                  <mat-label>Password</mat-label>
+                  <input type="password" matInput formControlName="confirmPasswordSignUp">
+                  @if (signupForm.get('confirmPasswordSignUp')?.hasError('required')) {
+                    <mat-error>Password is required</mat-error>
+                  }
+                </mat-form-field>
+              </div>
+              <div class="d-flex justify-content-between align-items-center">
+              </div>
+
+              <div class="text-center text-lg-start">
+                <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg"
+                        style="padding-left: 2.5rem; padding-right: 2.5rem;"
+                        (click)="signUp()"
+                        [disabled]="signupForm.invalid"
+                >Login
+                </button>
+                <p class="small fw-bold mt-2 pt-1 mb-0">Already had an account ?
+                  <a href="#!" class="link-danger">Sign in</a></p>
+              </div>
+            </form>
+
+          </mat-tab>
+        </mat-tab-group>
+        <div class="d-flex justify-content-center align-items-center">
+<!--          <mat-form-field>-->
+<!--            <mat-label>Selected language</mat-label>-->
+<!--            <mat-select [(ngModel)]="selectedLanguage" name="food" (valueChange)="changeLanguage($event)">-->
+<!--              @for (lan of languages; track lan) {-->
+<!--                <mat-option [value]="lan">{{ lan }}</mat-option>-->
+<!--              }-->
+<!--            </mat-select>-->
+<!--          </mat-form-field>-->
+          <button
+            mat-icon-button
+            aria-label="Translate icon"
+            (click)="openLanguageSheet()"
+            matTooltip="Change Language"
+            matTooltipPosition="below"
+          >
+            <mat-icon>translate</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

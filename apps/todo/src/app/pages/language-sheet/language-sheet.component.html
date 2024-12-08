@@ -1,0 +1,11 @@
+<!--<mat-list>-->
+<!--  <mat-list-item (click)="selectLanguage('en')">English</mat-list-item>-->
+<!--  <mat-list-item (click)="selectLanguage('vi')">Vietnamese</mat-list-item>-->
+<!--</mat-list>-->
+<mat-nav-list class="languages-sheet-container">
+  @for(language of languages; track language) {
+    <mat-list-item (click)="selectLanguage(language)" class="text-center">
+      <span matLine>{{_languages[language]}}</span>
+    </mat-list-item>
+  }
+</mat-nav-list>
