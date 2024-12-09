@@ -1,6 +1,7 @@
 import { Route } from '@angular/router';
 import {SignInComponent} from "./sign-in/sign-in.component";
 import {AuthGuard, LoginGuard} from "./guards/auth.guard";
+import {UserComponent} from "./pages/user/user.component";
 
 export const appRoutes: Route[] = [
   {
@@ -13,11 +14,21 @@ export const appRoutes: Route[] = [
     component: SignInComponent,
     canActivate: [LoginGuard]
   },
+  // {
+  //   path: 'main',
+  //   loadComponent: () => import('./pages/main-page/main-page.component').then(m => m.MainPageComponent),
+  //   canActivate: [AuthGuard],
+  //   children: [
+  //     {
+  //       path: 'user',
+  //       component: UserComponent
+  //     }
+  //   ]
+  // },
   {
     path: 'main',
-    loadComponent: () => import('./pages/main-page/main-page.component').then(m => m.MainPageComponent),
-    pathMatch: 'full',
-    canActivate: [AuthGuard]
+    loadChildren: () => import('./pages/main.module').then(m => m.MainModule),
+    canActivate: [AuthGuard],
   },
   {
     // This is a catch-all route for when the user enters an invalid URL

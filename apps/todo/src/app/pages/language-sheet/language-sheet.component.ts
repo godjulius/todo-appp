@@ -4,6 +4,8 @@ import {MatBottomSheetRef} from "@angular/material/bottom-sheet";
 import {MatList, MatListItem, MatNavList} from "@angular/material/list";
 import {TranslateService} from "@ngx-translate/core";
 import {ILanguage, LANGUAGES} from "../../core/constant/Language.model";
+import {LocalStorageService} from "../../core/services/local-storage.service";
+import {LANGUAGE} from "../../core/constant/AppConstant";
 
 @Component({
   selector: 'app-language-sheet',
@@ -14,6 +16,7 @@ import {ILanguage, LANGUAGES} from "../../core/constant/Language.model";
 })
 export class LanguageSheetComponent {
   private _bottomSheetRef = inject<MatBottomSheetRef<LanguageSheetComponent>>(MatBottomSheetRef);
+  private localstorageService = inject(LocalStorageService);
   languages: string[];
   _languages: ILanguage;
   constructor(
@@ -26,6 +29,7 @@ export class LanguageSheetComponent {
   selectLanguage(lang: string) {
     this.translateService.use(lang);
     this._bottomSheetRef.dismiss(lang);
+    this.localstorageService.set(LANGUAGE, lang);
   }
 
 }

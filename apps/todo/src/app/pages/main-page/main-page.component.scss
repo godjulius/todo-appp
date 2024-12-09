@@ -29,12 +29,14 @@ mat-sidenav-content{
 
 .expanded {
   width: 250px;
-  transition: width 0.5s ease;
+  //transition: width 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  //transition: width 0.5s;
 }
 
 .collapsed {
   width: 86px;
-  transition: width 0.5s ease;
+  //transition: width 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  //transition: width 0.5s;
 }
 
 .sidenav-container {

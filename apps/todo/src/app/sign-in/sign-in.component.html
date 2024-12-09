@@ -59,7 +59,7 @@
                     Remember me
                   </label>
                 </div>
-                <a href="#!" class="text-body">Forgot password?</a>
+                <a href="" class="text-body">Forgot password?</a>
               </div>
 
               <div class="text-center text-lg-start mt-4 pt-2">
@@ -67,9 +67,9 @@
                         style="padding-left: 2.5rem; padding-right: 2.5rem;"
                         (click)="signIn()"
                         [disabled]="loginForm.invalid"
-                >Login
+                >Sign in
                 </button>
-                <p class="small fw-bold mt-2 pt-1 mb-0">Don't have an account? <a href="#!"
+                <p class="small fw-bold mt-2 pt-1 mb-0">Don't have an account? <a href=""
                                                                                   class="link-danger">Register</a></p>
               </div>
 
@@ -81,7 +81,7 @@
               <div class="mb-2">
                 <mat-form-field class="loggin-field" appearance="outline">
                   <mat-label>Email</mat-label>
-                  <input type="email" matInput formControlName="emailSignUp">
+                <input type="email" matInput formControlName="emailSignUp" [autocomplete]="false">
                   @if (signupForm.get('emailSignUp')?.hasError('required')) {
                     <mat-error>Email is required</mat-error>
                   }
@@ -93,7 +93,7 @@
               <div class="mb-2">
                 <mat-form-field class="loggin-field" appearance="outline">
                   <mat-label>Password</mat-label>
-                  <input type="password" matInput formControlName="passwordSignUp">
+                  <input type="password" matInput formControlName="passwordSignUp" [autocomplete]="false">
                   @if (signupForm.get('passwordSignUp')?.hasError('required')) {
                     <mat-error>Password is required</mat-error>
                   }
@@ -101,10 +101,11 @@
               </div>
               <div>
                 <mat-form-field class="loggin-field" appearance="outline">
-                  <mat-label>Password</mat-label>
-                  <input type="password" matInput formControlName="confirmPasswordSignUp">
-                  @if (signupForm.get('confirmPasswordSignUp')?.hasError('required')) {
-                    <mat-error>Password is required</mat-error>
+                  <mat-label>Confirm Password</mat-label>
+                  <input type="password" matInput formControlName="confirmPasswordSignUp" [autocomplete]="false">
+                  <mat-error *ngIf="signupForm.get('confirmPasswordSignUp')?.hasError('required')">Password is required</mat-error>
+                  @if (signupForm.get('confirmPasswordSignUp')?.hasError('passwordMismatch')) {
+                    <mat-error>Passwords do not match</mat-error>
                   }
                 </mat-form-field>
               </div>
@@ -116,10 +117,10 @@
                         style="padding-left: 2.5rem; padding-right: 2.5rem;"
                         (click)="signUp()"
                         [disabled]="signupForm.invalid"
-                >Login
+                >Sign up
                 </button>
                 <p class="small fw-bold mt-2 pt-1 mb-0">Already had an account ?
-                  <a href="#!" class="link-danger">Sign in</a></p>
+                  <a href="" class="link-danger">Sign in</a></p>
               </div>
             </form>
 

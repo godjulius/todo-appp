@@ -3,5 +3,6 @@
   "SIGN_UP": "Sign up",
   "SIGN_IN_METHODS": "Sign in with",
   "EMAIL": "Email",
-  "PASSWORD": "Password"
+  "PASSWORD": "Password",
+  "APP_NAME": "Todo Application"
 }

@@ -36,7 +36,7 @@ export class CommonInterceptor implements HttpInterceptor {
     return next.handle(cloneRequest)
       .pipe(
         catchError((error: any) => {
-            if (error.status === 401) {
+            if (error.status === 401 || error.status === 400) {
               // Handle 401 error
               // Todo: show toast error
               alert(`Error: ${error.error}. Message: ${error.message}`)

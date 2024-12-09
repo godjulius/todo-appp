@@ -7,12 +7,13 @@ import {MatBottomSheet} from "@angular/material/bottom-sheet";
 import {LanguageSheetComponent} from "../language-sheet/language-sheet.component";
 import {MatListItem} from "@angular/material/list";
 import {MatTooltipModule} from "@angular/material/tooltip";
+import {TranslatePipe} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-header',
   standalone: true,
   imports: [CommonModule, MatIcon, MatIconButton, MatToolbar, MatListItem,
-    MatTooltipModule,],
+    MatTooltipModule, TranslatePipe,],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })
