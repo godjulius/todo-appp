@@ -1,4 +1,4 @@
-import {Component, inject, OnInit, ViewChild} from '@angular/core';
+import {Component, DestroyRef, inject, OnInit, signal, ViewChild} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {MatButtonModule} from "@angular/material/button";
 import {Router, RouterOutlet} from "@angular/router";
@@ -14,6 +14,10 @@ import {MatFormField, MatFormFieldModule, MatLabel} from "@angular/material/form
 import {MatInput, MatInputModule} from "@angular/material/input";
 import { CookieStorageService } from '../../core/services/cookie-storage.service';
 import {AUTH_TOKEN} from "../../core/constant/AppConstant";
+import {Store} from "@ngrx/store";
+import {Observable} from "rxjs";
+import {IProfile} from "../../shared/services/account.service";
+import {selectProfile} from "../../store/user.selector";
 
 @Component({
   selector: 'app-main-page',
@@ -50,17 +54,34 @@ export class MainPageComponent implements OnInit {
   sidenav!: MatSidenav;
   isMobile= false;
   isCollapsed = false;
+  profile = signal<IProfile>({
+    id: -1,
+    username: '',
+    email: '',
+    avatar: ''
+  });
+
   cookieStorageService = inject(CookieStorageService);
   router = inject(Router);
-  constructor(private observer: BreakpointObserver) {}
-
+  destroyRef = inject(DestroyRef);
+  constructor(
+    private observer: BreakpointObserver,
+    private store: Store<{ profile: IProfile}>,
+  ) {
+    this.profile$ = this.store.select(selectProfile);
+  }
+  profile$: Observable<IProfile>
   ngOnInit() {
     this.observer.observe(['(max-width: 800px)']).subscribe((screenSize) => {
-      if (screenSize.matches){
-        this.isMobile = true;
-      } else {
-        this.isMobile = false;
-      }
+      this.isMobile = screenSize.matches;
+    });
+    this.store.dispatch({ type: '[Profile] Init' });
+    const profileSubs = this.profile$.subscribe((profile) => {
+      this.profile.set(profile);
+      console.log('profile: ', profile);
+    })
+    this.destroyRef.onDestroy(() => {
+      profileSubs.unsubscribe();
     });
   }
 
@@ -77,5 +98,10 @@ export class MainPageComponent implements OnInit {
   logout() {
     this.cookieStorageService.deleteCookie(AUTH_TOKEN);
     this.router.navigate(['/login']);
+  }
+
+  navigateSettings() {
+    console.log(1)
+    this.router.navigate(['/main/settings']);
   }
 }

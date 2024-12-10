@@ -9,7 +9,7 @@ const routes: Routes = [
     component: MainPageComponent,
     children: [
       {
-        path: 'user',
+        path: 'settings',
         component: UserComponent,
       }
     ]

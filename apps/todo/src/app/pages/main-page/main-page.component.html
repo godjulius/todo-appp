@@ -9,13 +9,15 @@
           <mat-panel-description>
             <mat-icon>account_circle</mat-icon>
             @if(!isCollapsed) {
-              <span class="text-center">Nguyen Duong</span>
+              <span class="text-center">{{ profile().username }}</span>
             }
           </mat-panel-description>
         </mat-expansion-panel-header>
-        <div>
-          Gmai: duong&#64;gmail.com
-        </div>
+        {{ profile().email }}
+        <button (click)="navigateSettings()">
+          <mat-icon>settings</mat-icon>
+          Settings
+        </button>
         <button (click)="logout()">
           <mat-icon>exit_to_app</mat-icon>
           Logout
@@ -52,7 +54,6 @@
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
-    <h2>Content</h2>
     <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>

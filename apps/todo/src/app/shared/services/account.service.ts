@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import {inject, Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {BASE_URL} from "../../core/constant/ApiConstant";
@@ -18,6 +17,11 @@ export class AccountService {
     const url = `${BASE_URL}/sign-up`;
     return this.httpClient.post(url, body);
   }
+
+  getProfile() {
+    const url = `${BASE_URL}/me`;
+    return this.httpClient.get(url);
+  }
 }
 
 export interface ISignInBody {
@@ -29,4 +33,11 @@ export interface ISignUpBody {
   username: string;
   email: string;
   password: string;
+}
+
+export interface IProfile {
+  id: number,
+  username: string,
+  email: string,
+  avatar: string
 }
