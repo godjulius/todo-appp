@@ -1,55 +1,45 @@
 <app-header (toggleMenuEmitter)="toggleMenu(sidebar)"></app-header>
 <mat-sidenav-container autosize>
-  <mat-sidenav [ngClass]="!isCollapsed ? 'expanded' : isMobile ? 'expanded' : 'collapsed'" mode="side" [mode]="isMobile ? 'over' : 'side'" [opened]="isMobile ? 'false' : 'true'" class="sidenav-container">
+  <mat-sidenav [ngClass]="!isCollapsed ? 'expanded' : isMobile ? 'expanded' : 'collapsed'" mode="side"
+               [mode]="isMobile ? 'over' : 'side'" [opened]="isMobile ? 'false' : 'true'" class="sidenav-container">
 
     <div class="account">
       <mat-expansion-panel #sidebar (opened)="isCollapsed = false">
         <mat-expansion-panel-header>
-<!--          <mat-panel-title> Me </mat-panel-title>-->
+          <!--          <mat-panel-title> Me </mat-panel-title>-->
           <mat-panel-description>
             <mat-icon>account_circle</mat-icon>
-            @if(!isCollapsed) {
+            @if (!isCollapsed) {
               <span class="text-center">{{ profile().username }}</span>
             }
           </mat-panel-description>
         </mat-expansion-panel-header>
         {{ profile().email }}
-        <button (click)="navigateSettings()">
+        <button mat-raised-button (click)="navigateSettings()" style="margin-bottom: 8px;">
           <mat-icon>settings</mat-icon>
           Settings
         </button>
-        <button (click)="logout()">
+        <button mat-raised-button (click)="logout()">
           <mat-icon>exit_to_app</mat-icon>
           Logout
         </button>
       </mat-expansion-panel>
     </div>
     <mat-nav-list class="side-item-container">
-      <button mat-list-item
-              matTooltip="Dash board"
-              matTooltipPosition="right"
-              class="side-item"
-      >
+        @for(page of PAGE_LIST; track page.languageKey) {
+            <button mat-list-item
+                    [matTooltip]="page.languageKey | translate"
+                    matTooltipPosition="right"
+                    class="side-item"
+                    (click)="navigateTo(page.path)"
+            >
         <span class="entry">
           <mat-icon
-          >event</mat-icon>
-          <span *ngIf="!isCollapsed">Dashboard</span>
+          >{{ page.icon }}</mat-icon>
+          <span *ngIf="!isCollapsed">{{ page.languageKey | translate }}</span>
         </span>
-      </button>
-
-    </mat-nav-list>
-    <mat-nav-list class="side-item-container">
-      <button mat-list-item
-              matTooltip="Dash board"
-              matTooltipPosition="right"
-              class="side-item"
-      >
-        <span class="entry">
-          <mat-icon
-          >event</mat-icon>
-          <span *ngIf="!isCollapsed">Dashboard</span>
-        </span>
-      </button>
+            </button>
+        }
 
     </mat-nav-list>
   </mat-sidenav>

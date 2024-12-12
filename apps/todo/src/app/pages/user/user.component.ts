@@ -1,8 +1,13 @@
-import {Component, DestroyRef, inject, OnInit} from '@angular/core';
+import {Component, DestroyRef, inject, OnInit, signal} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {AccountService} from "../../shared/services/account.service";
-import {finalize} from "rxjs";
+import {AccountService, IProfile} from "../../shared/services/account.service";
+import {finalize, Observable} from "rxjs";
 import {LoadingService} from "../../shared/app-loading/loading.service";
+import {Store} from "@ngrx/store";
+import {selectProfile} from "../../store/user.selector";
+import {MatDialog} from "@angular/material/dialog";
+import {UserSettingsComponent} from "./user-settings/user-settings.component";
+import {BASE_URL} from "../../core/constant/ApiConstant";
 
 @Component({
   selector: 'app-user',
@@ -15,28 +20,41 @@ export class UserComponent implements OnInit {
   accountService = inject(AccountService);
   destroyRef = inject(DestroyRef)
   loadingService = inject(LoadingService)
-  constructor() {
+  store = inject(Store<{ profile: IProfile}>)
+  dialog = inject(MatDialog)
+  avatarUrl = BASE_URL
+  profile$: Observable<IProfile>
+  profile = signal<IProfile>({
+    id: -1,
+    username: '',
+    email: '',
+    avatar: ''
+  });
+  constructor (
+  ) {
+    this.profile$ = this.store.select(selectProfile);
   }
 
   ngOnInit() {
-
-  }
-
-  getProfile() {
-    this.loadingService.startLoading()
-    const profileSubs = this.accountService.getProfile()
-      .pipe(
-        finalize(() => {
-          this.loadingService.stopLoading()
-        })
-      )
-        .subscribe((res) => {
-          if (res) {
-            console.log(res)
-          }
-        })
-    this.destroyRef.onDestroy(() => {
-      profileSubs.unsubscribe()
+    const profileSubs = this.profile$.subscribe((profile) => {
+      this.profile.set(profile);
+      this.avatarUrl += profile.avatar
+      console.log('profile: ', profile);
     })
+    this.destroyRef.onDestroy(() => {
+      profileSubs.unsubscribe();
+    });
   }
+
+  openDialog() {
+    const data = this.profile();
+    this.dialog.open(UserSettingsComponent, {
+      data,
+    });
+  }
+
+  handleErrorAvatar() {
+    this.avatarUrl = './assets/images/default_avt.jpg';
+  }
+
 }
