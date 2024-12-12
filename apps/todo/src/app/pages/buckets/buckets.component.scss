@@ -1,0 +1,35 @@
+.buckets-container {
+    padding: 1rem;
+    height: 100%;
+}
+
+.buckets-search-field {
+    width: 60%;
+}
+
+:host ::ng-deep .buckets-search-field .mat-mdc-form-field-bottom-align {
+    height: 0 !important;
+}
+
+.buckets-features {
+    width: 70%;
+}
+
+@media screen and (max-width: 800px) {
+    .buckets-features {
+        width: 100%;
+        display: block !important;
+    }
+    .buckets-search-field {
+        width: 100%;
+        margin-bottom: 8px;
+    }
+    .buckets-header {
+        display: block !important;
+    }
+    .buckets-buttons {
+        width: 100% !important;
+        justify-content: space-evenly !important;
+    }
+
+}
