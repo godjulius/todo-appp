@@ -19,9 +19,9 @@ import {BASE_URL} from "../../core/constant/ApiConstant";
 export class UserComponent implements OnInit {
   accountService = inject(AccountService);
   destroyRef = inject(DestroyRef)
+  dialog = inject(MatDialog)
   loadingService = inject(LoadingService)
   store = inject(Store<{ profile: IProfile}>)
-  dialog = inject(MatDialog)
   avatarUrl = BASE_URL
   profile$: Observable<IProfile>
   profile = signal<IProfile>({
@@ -39,7 +39,6 @@ export class UserComponent implements OnInit {
     const profileSubs = this.profile$.subscribe((profile) => {
       this.profile.set(profile);
       this.avatarUrl += profile.avatar
-      console.log('profile: ', profile);
     })
     this.destroyRef.onDestroy(() => {
       profileSubs.unsubscribe();

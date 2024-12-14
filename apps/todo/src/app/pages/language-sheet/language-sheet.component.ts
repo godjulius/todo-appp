@@ -24,7 +24,6 @@ export class LanguageSheetComponent {
   ) {
     this.languages = this.translateService.getLangs();
     this._languages = LANGUAGES;
-    console.log('Languages:', this.languages);
   }
   selectLanguage(lang: string) {
     this.translateService.use(lang);

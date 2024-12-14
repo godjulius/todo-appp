@@ -13,16 +13,67 @@
                 </mat-form-field>
                 <div class="d-flex align-items-center justify-content-center buckets-buttons">
 
-                <button mat-raised-button>
-                    <mat-icon>settings</mat-icon>
-                    Settings
-                </button>
-                <button mat-raised-button>
-                    <mat-icon>settings</mat-icon>
-                    Settings
-                </button>
+                    <button mat-raised-button>
+                        <mat-icon>settings</mat-icon>
+                        Settings
+                    </button>
+                    <button mat-raised-button>
+                        <mat-icon>settings</mat-icon>
+                        Settings
+                    </button>
                 </div>
             </div>
         </div>
+        <div class="row d-flex justify-content-center align-items-center">
+            <div class="col-md-12 col-xl-10">
+
+                <div class="card mask-custom">
+                    <div class="card-body p-4 text-white">
+                        <table class="table text-white mb-0">
+                            <thead>
+                            <tr>
+                                <th scope="col">Bucket</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Created date</th>
+                                <th scope="col">Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                @for (bucket of buckets; track bucket.id) {
+                                    <tr class="fw-normal">
+                                        <td class="align-middle" style="width: 40%">
+                                            <span> {{ bucket.title }}</span>
+                                        </td>
+                                        <td class="align-middle">
+                                            @if (bucket.public) {
+                                                <h6 class="mb-0"><span class="badge bg-success">Public</span></h6>
+                                            } @else {
+                                                <h6 class="mb-0"><span class="badge bg-danger">Private</span></h6>
+                                            }
+
+                                        </td>
+                                        <td class="align-middle">
+                                            {{ bucket.createdAt }}
+                                        </td>
+                                        <td class="align-middle">
+                                            <button mat-fab extended (click)="openEditBucketDialog(bucket)">
+                                                <mat-icon>edit</mat-icon>
+                                                edit
+                                            </button>
+                                            <button mat-fab extended>
+                                                <mat-icon>assignment</mat-icon>
+                                                assignment
+                                            </button>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <mat-paginator [showFirstLastButtons]="true" (page)="pageChanged($event)" [pageSize]="pageSize"
+                       [length]="totalItems" [pageSizeOptions]="pageSizeOptions"></mat-paginator>
     </div>
 </section>

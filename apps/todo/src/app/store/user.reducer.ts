@@ -17,7 +17,6 @@ export const profileReducer = createReducer(
 );
 
 function updateProfileReducer(currentProfile: IProfile ,newProfile: IProfile) {
-  console.log('new Profile: ', newProfile);
   return newProfile;
 }
 

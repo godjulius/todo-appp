@@ -22,7 +22,6 @@ export class UserSettingsComponent {
   avatarUrl: string | ArrayBuffer | null = '';
   avatarData: File | null = null;
   constructor() {
-    console.log(this.matData);
     this.profileForm = this.fb.group({
       username: [this.matData.username, Validators.required],
       email: [this.matData.email, [Validators.required, Validators.email]],
@@ -51,12 +50,10 @@ export class UserSettingsComponent {
       reader.onload = (e: any) => {
         this.avatarUrl = e.target.result;
           this.profileForm.patchValue({ avatar: this.avatarUrl });
-        console.log(e.target.result);
       };
       if (inputNode.files) {
       reader.readAsDataURL(inputNode.files[0]);
       this.avatarData = inputNode.files[0];
-        console.log(this.avatarData);
       this.profileForm.patchValue({ avatar: this.avatarData });
       }
     }

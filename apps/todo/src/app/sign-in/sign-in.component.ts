@@ -73,7 +73,6 @@ export class SignInComponent extends BaseComponent {
       )
       .subscribe((response: unknown) => {
         if (response) {
-          console.log('Response:', response);
           this.cookieService.setCookie(AUTH_TOKEN, (response as ISignInResponse).access_token, 1);
           this.router.navigate(['/main']);
         }
@@ -89,8 +88,6 @@ export class SignInComponent extends BaseComponent {
     }
     const username = this.signupForm.get('emailSignUp')?.value;
     const password = this.signupForm.get('passwordSignUp')?.value;
-    console.log('Username:', username);
-    console.log('Password:', password);
     this.loadingService.startLoading()
     const signupSubscription = this.accountService.signUp({email: username || '', password: password || '', username: username || ''})
       .pipe(

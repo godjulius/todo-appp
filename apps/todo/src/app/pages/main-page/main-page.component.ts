@@ -84,7 +84,6 @@ export class MainPageComponent implements OnInit {
         this.store.dispatch({type: '[Profile] Init'});
         const profileSubs = this.profile$.subscribe((profile) => {
             this.profile.set(profile);
-            console.log('profile: ', profile);
         })
         this.destroyRef.onDestroy(() => {
             profileSubs.unsubscribe();
@@ -108,12 +107,10 @@ export class MainPageComponent implements OnInit {
     }
 
     navigateSettings() {
-        console.log(1)
         this.router.navigate(['/main/settings']);
     }
 
     navigateTo(path: string) {
-        console.log(path)
         this.router.navigate([path], { relativeTo: this.route });
     }
 }

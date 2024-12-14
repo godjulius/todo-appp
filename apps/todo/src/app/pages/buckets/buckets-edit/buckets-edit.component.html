@@ -1,0 +1,20 @@
+<div class="bucket-container">
+    <mat-slide-toggle
+        class="example-margin"
+        [(ngModel)]="isPublic"
+        >
+        Public
+    </mat-slide-toggle>
+</div>
+<mat-form-field class="example-form-field">
+    <mat-label>Clearable input</mat-label>
+    <input matInput type="text" [(ngModel)]="title">
+    @if (title) {
+        <button matSuffix mat-icon-button aria-label="Clear" (click)="title=''">
+            <mat-icon>close</mat-icon>
+        </button>
+    }
+</mat-form-field>
+
+<button mat-flat-button>Basic</button>
+<button mat-flat-button disabled>Disabled</button>

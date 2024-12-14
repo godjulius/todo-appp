@@ -57,6 +57,5 @@ export class CommonInterceptor implements HttpInterceptor {
 }
 
 export function commonInterceptor(req: HttpRequest<any>, next: HttpHandlerFn): Observable<HttpEvent<any>> {
-  console.log('function interceptor');
   return next(req);
 }
