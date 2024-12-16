@@ -111,6 +111,12 @@ export class MainPageComponent implements OnInit {
     }
 
     navigateTo(path: string) {
+        if (path === 'buckets') {
+            this.router.navigate([path], { relativeTo: this.route, queryParams: {
+                    page: 1,
+                } });
+            return;
+        }
         this.router.navigate([path], { relativeTo: this.route });
     }
 }

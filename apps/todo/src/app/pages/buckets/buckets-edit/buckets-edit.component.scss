@@ -1,7 +1,38 @@
 .bucket-container {
     width: 500px;
-    height: 500px;
+    //height: 500px;
     max-width: 90vw;
     max-height: 90vh;
-    padding: 1rem
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.bucket-edit-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+:host ::ng-deep mat-form-field .mat-mdc-form-field-bottom-align {
+    height: 0 !important;
+}
+
+.status-public-color {
+    color: var(--bs-success) !important;
+    font-weight: 500;
+}
+
+.status-private-color {
+    color: var(--bs-danger) !important;
+    font-weight: 500;
+}
+
+:host ::ng-deep .bucket-edit-line .mat-mdc-text-field-wrapper {
+    border-radius: 16px 16px 0 0;
+}
+
+.sub-btn {
+    background-color: darkgray;
 }

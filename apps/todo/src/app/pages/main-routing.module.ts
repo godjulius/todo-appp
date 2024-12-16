@@ -4,6 +4,7 @@ import {MainPageComponent} from "./main-page/main-page.component";
 import {UserComponent} from "./user/user.component";
 import {WelcomeComponent} from "./welcome/welcome.component";
 import {BucketsComponent} from "./buckets/buckets.component";
+import {BucketItemsComponent} from "./bucket-items/bucket-items.component";
 
 const routes: Routes = [
     {
@@ -21,6 +22,10 @@ const routes: Routes = [
             {
                 path: 'buckets',
                 component: BucketsComponent,
+            },
+            {
+                path: 'buckets/:id',
+                component: BucketItemsComponent,
             }
 
         ]

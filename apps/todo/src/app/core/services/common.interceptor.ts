@@ -36,13 +36,17 @@ export class CommonInterceptor implements HttpInterceptor {
     return next.handle(cloneRequest)
       .pipe(
         catchError((error: any) => {
-            if (error.status === 401 || error.status === 400) {
+            if (error.status === 401) {
               // Handle 401 error
               // Todo: show toast error
               alert(`Error: ${error.error}. Message: ${error.message}`)
               this.cookieService.deleteCookie(AUTH_TOKEN);
               this.router.navigate(['/login']);
               return throwError(() => new Error())
+            } else if (error.status === 400) {
+                // Handle 400 error
+                alert(`Error: ${error.error}. Message: ${error.message}`)
+                return throwError(() => new Error())
             }
             return throwError(() => new Error())
         }),

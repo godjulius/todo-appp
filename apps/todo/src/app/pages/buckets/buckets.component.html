@@ -13,13 +13,9 @@
                 </mat-form-field>
                 <div class="d-flex align-items-center justify-content-center buckets-buttons">
 
-                    <button mat-raised-button>
-                        <mat-icon>settings</mat-icon>
-                        Settings
-                    </button>
-                    <button mat-raised-button>
-                        <mat-icon>settings</mat-icon>
-                        Settings
+                    <button mat-raised-button (click)="openAddBucketDialog()">
+                        <mat-icon>add</mat-icon>
+                        Add bucket
                     </button>
                 </div>
             </div>
@@ -56,13 +52,13 @@
                                             {{ bucket.createdAt }}
                                         </td>
                                         <td class="align-middle">
-                                            <button mat-fab extended (click)="openEditBucketDialog(bucket)">
+                                            <button mat-fab extended (click)="openEditBucketDialog(bucket)" class="mr-8">
                                                 <mat-icon>edit</mat-icon>
                                                 edit
                                             </button>
-                                            <button mat-fab extended>
+                                            <button mat-fab extended (click)="test(bucket)">
                                                 <mat-icon>assignment</mat-icon>
-                                                assignment
+                                                details
                                             </button>
                                         </td>
                                     </tr>
@@ -73,7 +69,7 @@
                 </div>
             </div>
         </div>
-        <mat-paginator [showFirstLastButtons]="true" (page)="pageChanged($event)" [pageSize]="pageSize"
-                       [length]="totalItems" [pageSizeOptions]="pageSizeOptions"></mat-paginator>
+        <mat-paginator [showFirstLastButtons]="true" (page)="pageChangedV2($event)" [pageSize]="pageSize"
+                       [length]="totalItems" [pageSizeOptions]="pageSizeOptions" [pageIndex]="pageNumber - 1"></mat-paginator>
     </div>
 </section>

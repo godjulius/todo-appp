@@ -12,7 +12,7 @@ export class PagedRequestDto {
 
 export abstract class PagedListingComponent  {
     // @ViewChild(MatPaginator) paginatorElement: MatPaginator | undefined
-    public pageSize = 10
+    public pageSize = 5
     public pageNumber = 1
     public totalPages = 1
     public totalItems = 100

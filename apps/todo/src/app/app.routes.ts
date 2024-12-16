@@ -30,9 +30,9 @@ export const appRoutes: Route[] = [
     loadChildren: () => import('./pages/main.module').then(m => m.MainModule),
     canActivate: [AuthGuard],
   },
-  {
-    // This is a catch-all route for when the user enters an invalid URL
-    path: '**',
-    redirectTo: '/main'
-  },
+  // {
+  //   // This is a catch-all route for when the user enters an invalid URL
+  //   path: '**',
+  //   redirectTo: '/main'
+  // },
 ];
