@@ -5,11 +5,11 @@ export const PAGE_LIST = [
     {
         languageKey: 'WELCOME',
         path: '',
-        icon: 'event'
+        icon: 'auto_stories'
     },
     {
         languageKey: 'BUCKETS',
         path: 'buckets',
-        icon: 'event'
+        icon: 'view_list'
     }
 ]

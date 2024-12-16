@@ -14,7 +14,7 @@
                 <div class="d-flex align-items-center justify-content-center buckets-buttons">
 
                     <button mat-raised-button (click)="openAddBucketDialog()">
-                        <mat-icon>add</mat-icon>
+                        <mat-icon>format_list_bulleted_add</mat-icon>
                         Add bucket
                     </button>
                 </div>
@@ -52,7 +52,8 @@
                                             {{ bucket.createdAt }}
                                         </td>
                                         <td class="align-middle">
-                                            <button mat-fab extended (click)="openEditBucketDialog(bucket)" class="mr-8">
+                                            <button mat-fab extended (click)="openEditBucketDialog(bucket)"
+                                                    class="mr-8">
                                                 <mat-icon>edit</mat-icon>
                                                 edit
                                             </button>
@@ -67,9 +68,11 @@
                         </table>
                     </div>
                 </div>
+                <mat-paginator class="invisible-background" [showFirstLastButtons]="true" (page)="pageChangedV2($event)"
+                               [pageSize]="pageSize"
+                               [length]="totalItems" [pageSizeOptions]="pageSizeOptions"
+                               [pageIndex]="pageNumber - 1"></mat-paginator>
             </div>
         </div>
-        <mat-paginator [showFirstLastButtons]="true" (page)="pageChangedV2($event)" [pageSize]="pageSize"
-                       [length]="totalItems" [pageSizeOptions]="pageSizeOptions" [pageIndex]="pageNumber - 1"></mat-paginator>
     </div>
 </section>

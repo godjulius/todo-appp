@@ -1,7 +1,7 @@
 <div class="setting-container d-flex justify-content-center align-items-center">
   <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" class="w-100" autocomplete="off">
 
-    <div class="form-group avatar-image-settings d-flex align-items-center justify-content-evenly">
+    <div class="form-group avatar-image-settings d-flex align-items-center justify-content-evenly ">
       <mat-label>Your avatar</mat-label>
       <img (error)="handleErrorAvatar()" [src]="avatarUrl" alt="Avatar" class="avatar-image">
       <button type="button" mat-raised-button (click)="fileInput.click()">Choose File</button>

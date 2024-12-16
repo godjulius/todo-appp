@@ -2,7 +2,11 @@ mat-toolbar{
   position:fixed;
   top:0;
   z-index: 2;
-  background-color: var(--primary);
+  //background-color: var(--primary);
+    background-image: linear-gradient(to top, #73a8f8, #5792fe, #4779ff, #4a5cfc, #5d35f2);
+    color: white;
+    font-weight: 600;
+    box-shadow: rgba(0, 0, 0, 0.35) 0 5px 15px;
 }
 
 h1 {

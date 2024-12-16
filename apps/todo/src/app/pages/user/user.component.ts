@@ -8,11 +8,14 @@ import {selectProfile} from "../../store/user.selector";
 import {MatDialog} from "@angular/material/dialog";
 import {UserSettingsComponent} from "./user-settings/user-settings.component";
 import {BASE_URL} from "../../core/constant/ApiConstant";
+import {MatTooltipModule} from "@angular/material/tooltip";
+import {MatListItem} from "@angular/material/list";
+import {TranslatePipe} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-user',
   standalone: true,
-  imports: [CommonModule],
+    imports: [CommonModule, MatTooltipModule, MatListItem, TranslatePipe],
   templateUrl: './user.component.html',
   styleUrl: './user.component.scss',
 })

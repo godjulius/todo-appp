@@ -1,0 +1,37 @@
+.task-container {
+    width: 250px;
+    height: 200px;
+    border-radius: 1rem;
+    box-shadow: rgba(0, 0, 0, 0.35) 0 5px 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-image: linear-gradient(to bottom, #73a8f8, #6798fb, #6586fc, #6c71f9, #7a59f2);
+    color: white;
+    font-weight: 500;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.task-line {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+}
+
+.task-big-line {
+    align-items: flex-start;
+    flex-grow: 1;
+    //-webkit-box-orient: vertical;
+    //-webkit-line-clamp: 3;
+    //overflow: hidden;
+    //display: -webkit-box;
+}
+
+.task-field {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}

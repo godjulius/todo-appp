@@ -1,4 +1,5 @@
 import {PageEvent} from "@angular/material/paginator";
+import {BaseComponent} from "./base.component";
 
 export interface PagedResultDto {
     items: any[]
@@ -10,7 +11,7 @@ export class PagedRequestDto {
     limit: number | undefined
 }
 
-export abstract class PagedListingComponent  {
+export abstract class PagedListingComponent extends BaseComponent {
     // @ViewChild(MatPaginator) paginatorElement: MatPaginator | undefined
     public pageSize = 5
     public pageNumber = 1
@@ -21,7 +22,8 @@ export abstract class PagedListingComponent  {
     // public sortCol = ''
     // public sortDirection = ''
 
-    constructor() {
+    protected constructor() {
+        super()
     }
 
 

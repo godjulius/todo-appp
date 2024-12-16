@@ -15,3 +15,10 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .mr-8 {
     margin-right: 8px;
 }
+
+.line-climb-3 {
+    -webkit-box-orient: vertical !important;
+    -webkit-line-clamp: 3 !important;
+    overflow: hidden !important;
+    display: -webkit-box !important;
+}

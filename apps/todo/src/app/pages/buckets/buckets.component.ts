@@ -21,7 +21,6 @@ import {ActivatedRoute, Router} from "@angular/router";
     styleUrl: './buckets.component.scss',
 })
 export class BucketsComponent extends PagedListingComponent implements OnInit {
-    loadingService = inject(LoadingService)
     bucketsService = inject(BucketsService)
     destroyRef = inject(DestroyRef)
     dialog = inject(MatDialog)

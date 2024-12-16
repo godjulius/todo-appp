@@ -5,29 +5,45 @@
 
         </div>
 
-<!--        items list-->
-        <div class="row d-flex justify-content-center align-items-center">
-            <div class="col-md-12 col-xl-10">
+        <!--        items list-->
+        <div class="task-field">
+            @for (task of taskList(); track task) {
 
-                <div class="card mask-custom">
-                    <div class="card-body p-4 text-white">
-                        <table class="table text-white mb-0">
-                            <thead>
-                            <tr>
-                                <th scope="col">Bucket</th>
-                                <th scope="col">Status</th>
-                                <th scope="col">Created date</th>
-                                <th scope="col">Actions</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-
-                            </tbody>
-                        </table>
+                <div class="task-container">
+                    <div class="task-line" style="font-size: 20px;">
+                        <mat-icon>
+                            assignment
+                        </mat-icon>
+                        <span>Task id: 12</span>
+                    </div>
+                    <div class="task-line task-big-line line-climb-3">
+                        <span>Title: </span>
+                        <span
+                            [matTooltip]="'Tranh thủ đi chơi Noel sớm các bạn ơii 🥰\n'+
+'                            Chờ gì nữa mà không cùng nhau hoà vào không khí Giáng Sinh của Hà Nội 🎄❄🎁'"
+                            matTooltipPosition="above"
+                        >
+                            Tranh thủ đi chơi Noel sớm các bạn ơii 🥰
+                            Chờ gì nữa mà không cùng nhau hoà vào không khí Giáng Sinh của Hà Nội 🎄❄🎁
+                        </span>
+                    </div>
+                    <div class="task-line line-climb-3">
+                        <span>Time: </span>
+                        <span>2021-09-09, 12:00</span>
+                    </div>
+                    <div class="task-line">
+                        <span>Status:</span>
+                        <mat-icon>
+                            pending_actions
+                        </mat-icon>
+                        <mat-icon>
+                            assignment_turned_in
+                        </mat-icon>
                     </div>
                 </div>
-            </div>
+            }
+            <mat-paginator class="invisible-background" [showFirstLastButtons]="true" (page)="pageChanged($event)" [pageSize]="pageSize"
+                           [length]="totalItems" [pageSizeOptions]="pageSizeOptions" [pageIndex]="pageNumber - 1"></mat-paginator>
         </div>
-
     </div>
 </section>
