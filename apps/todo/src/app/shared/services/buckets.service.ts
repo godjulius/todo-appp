@@ -15,7 +15,6 @@ export class BucketsService {
             .set('page', paramsObj.page);
         if (paramsObj.query) {
            params = params.set('query', paramsObj.query);
-            console.log(params);
         }
         return this.httpClient.get(url, {params});
     }
@@ -33,6 +32,35 @@ export class BucketsService {
     deleteBucket(_id: string) {
         const url = `${BASE_URL}/buckets/${_id}`;
         const data = {id: _id}
+        return this.httpClient.delete(url, {body: data});
+    }
+    getBucketItems(bucketId: number,paramsObj: any) {
+        const url = `${BASE_URL}/buckets/${bucketId}/items`;
+        let params = new HttpParams()
+            .set('page', paramsObj.page)
+            .set('limit', paramsObj.limit);
+        if (paramsObj.query) {
+            params = params.set('query', paramsObj.query);
+        }
+        if (paramsObj.done > -1) {
+            params = params.set('done', paramsObj.done);
+        }
+        return this.httpClient.get(url, {params});
+    }
+
+    createBucketItem(bucketId: number, data: any) {
+        const url = `${BASE_URL}/buckets/${bucketId}/items`;
+        return this.httpClient.post(url, data);
+    }
+
+    updateBucketItem(bucketId: number, itemId: number, data: any) {
+        const url = `${BASE_URL}/buckets/${bucketId}/items/${itemId}`;
+        return this.httpClient.patch(url, data);
+    }
+
+    deleteBucketItem(bucketId: number, itemId: number) {
+        const url = `${BASE_URL}/buckets/${bucketId}/items/${itemId}`;
+        const data = {id: itemId}
         return this.httpClient.delete(url, {body: data});
     }
 }

@@ -6,7 +6,8 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    background-image: linear-gradient(to bottom, #73a8f8, #6798fb, #6586fc, #6c71f9, #7a59f2);
+    //background-image: linear-gradient(to bottom, #73a8f8, #6798fb, #6586fc, #6c71f9, #7a59f2);
+    background-image: linear-gradient(to top, #73a8f8, #5792fe, #4779ff, #4a5cfc, #5d35f2);
     color: white;
     font-weight: 500;
     font-size: 16px;
@@ -34,4 +35,44 @@
     justify-content: center;
     gap: 1rem;
     flex-wrap: wrap;
+}
+
+.items-tab-content {
+    margin-top: 1rem;
+}
+
+.buckets-features {
+    width: 70%;
+}
+
+@media screen and (max-width: 800px) {
+    .buckets-features {
+        width: 100%;
+        display: block !important;
+    }
+    .buckets-search-field {
+        width: 100%;
+        margin-bottom: 8px;
+    }
+    .buckets-header {
+        display: block !important;
+    }
+    .buckets-buttons {
+        width: 100% !important;
+        justify-content: space-evenly !important;
+    }
+
+}
+
+.buckets-container {
+    padding: 1rem;
+    height: 100%;
+}
+
+.buckets-search-field {
+    width: 60%;
+}
+
+:host ::ng-deep .buckets-search-field .mat-mdc-form-field-bottom-align {
+    height: 0 !important;
 }

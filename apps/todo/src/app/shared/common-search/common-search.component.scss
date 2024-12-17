@@ -1,0 +1,7 @@
+.common-search-container {
+    width: 100%;
+}
+
+:host ::ng-deep .common-search-container .mat-mdc-form-field-bottom-align {
+    height: 0 !important;
+}

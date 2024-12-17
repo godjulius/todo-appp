@@ -1,0 +1,50 @@
+<div class="bucket-container">
+    <mat-form-field class="bucket-edit-line">
+        <mat-label>Title</mat-label>
+        <input matInput type="text" [(ngModel)]="title" required #bucketTitle="ngModel">
+        @if (title()) {
+            <button matSuffix mat-icon-button aria-label="Clear" (click)="title.set('')">
+                <mat-icon>close</mat-icon>
+            </button>
+        }
+    </mat-form-field>
+    <div class="bucket-edit-line">
+
+        <mat-slide-toggle
+            [(ngModel)]="isDone"
+
+        >
+            <span class="d-flex align-items-center" [ngClass]="isDone() ? 'status-public-color' : 'status-private-color'">
+                @if (isDone()) {
+                    Done
+                    <mat-icon class="status-public-color">
+                                assignment_turned_in
+                </mat-icon>
+                } @else {
+                    Pending
+                    <mat-icon class="status-private-color">
+                                pending_actions
+                </mat-icon>
+                }
+            </span>
+        </mat-slide-toggle>
+    </div>
+    @if (!isCreate()) {
+        <div class="bucket-edit-line">
+            <span>Create time:</span>
+            <span>{{ matData.createdAt || ''  |  date:'short' }}</span>
+        </div>
+        <div class="bucket-edit-line">
+            <span>Last update time:</span>
+            <span>{{ matData.updatedAt || '' | date:'short' }}</span>
+        </div>
+    }
+    <div class="w-100 d-flex justify-content-between bucket-edit-line">
+        @if (isCreate()) {
+            <button mat-flat-button (click)="createItem()" [disabled]="bucketTitle.invalid">Create</button>
+        } @else {
+            <button mat-flat-button (click)="updateItem()" [disabled]="bucketTitle.invalid">Update</button>
+            <button mat-flat-button class="sub-btn" (click)="handleDeleteItem()">Delete</button>
+        }
+    </div>
+</div>

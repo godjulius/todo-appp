@@ -1,0 +1,7 @@
+<mat-form-field appearance="outline" class="common-search-container">
+    <mat-label>{{ label() }}</mat-label>
+    <input matInput [value]="query()" type="search" [placeholder]="label()" class="" (input)="handleInput($event)">
+    <button matSuffix mat-icon-button>
+        <mat-icon>search</mat-icon>
+    </button>
+</mat-form-field>

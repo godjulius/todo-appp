@@ -54,3 +54,13 @@
 .invisible-background {
     background-color: rgba(0,0,0,0) !important;
 }
+
+.status-public-color {
+    color: var(--bs-success) !important;
+    font-weight: 500;
+}
+
+.status-private-color {
+    color: var(--bs-danger) !important;
+    font-weight: 500;
+}

@@ -24,7 +24,6 @@ export class BucketsEditComponent extends BaseComponent{
     isCreate = false;
     matData = inject(MAT_DIALOG_DATA);
     bucketsService = inject(BucketsService);
-    destroyRef = inject(DestroyRef);
     dialogRef = inject(MatDialogRef<BucketsEditComponent>)
     constructor() {
         super()
@@ -54,7 +53,7 @@ export class BucketsEditComponent extends BaseComponent{
             .subscribe(
             (res: any) => {
                 console.log(res);
-                this.dialogRef.close();
+                this.dialogRef.close(true);
             }
         )
             this.destroyRef.onDestroy(() => {

@@ -1,8 +1,9 @@
 import {LoadingService} from "../shared/app-loading/loading.service";
-import {inject} from "@angular/core";
+import {DestroyRef, inject} from "@angular/core";
 
 export class BaseComponent {
   loadingService = inject(LoadingService);
+  destroyRef = inject(DestroyRef)
   constructor() {
 
   }

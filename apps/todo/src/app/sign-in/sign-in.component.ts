@@ -48,7 +48,6 @@ export class SignInComponent extends BaseComponent {
   router = inject(Router);
   private bottomSheet = inject(MatBottomSheet)
   private accountService = inject(AccountService);
-  private destroyRef = inject(DestroyRef);
 
   constructor() {
     super();

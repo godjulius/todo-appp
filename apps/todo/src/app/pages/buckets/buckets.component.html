@@ -3,14 +3,14 @@
         <div class="d-flex align-items-center justify-content-between buckets-header">
             <h1>Buckets list</h1>
             <div class="d-flex align-items-center justify-content-evenly buckets-features">
+                <div class="buckets-search-field">
 
-                <mat-form-field appearance="outline" class="buckets-search-field">
-                    <mat-label>Search</mat-label>
-                    <input matInput type="search" placeholder="Search" class="search-buckets">
-                    <button matSuffix mat-icon-button>
-                        <mat-icon>search</mat-icon>
-                    </button>
-                </mat-form-field>
+                <app-common-search
+                    label="Search bucket"
+                    (filterChange)="handleSearchBucket($event)"
+                >
+                </app-common-search>
+                </div>
                 <div class="d-flex align-items-center justify-content-center buckets-buttons">
 
                     <button mat-raised-button (click)="openAddBucketDialog()">
@@ -35,7 +35,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                                @for (bucket of buckets; track bucket.id) {
+                                @for (bucket of buckets(); track bucket.id) {
                                     <tr class="fw-normal">
                                         <td class="align-middle" style="width: 40%">
                                             <span> {{ bucket.title }}</span>
@@ -57,7 +57,7 @@
                                                 <mat-icon>edit</mat-icon>
                                                 edit
                                             </button>
-                                            <button mat-fab extended (click)="test(bucket)">
+                                            <button mat-fab extended (click)="openBucketTasks(bucket)">
                                                 <mat-icon>assignment</mat-icon>
                                                 details
                                             </button>

@@ -1,5 +1,7 @@
 import {PageEvent} from "@angular/material/paginator";
 import {BaseComponent} from "./base.component";
+import {DestroyRef, inject} from "@angular/core";
+import {ActivatedRoute, Router} from "@angular/router";
 
 export interface PagedResultDto {
     items: any[]
@@ -13,12 +15,20 @@ export class PagedRequestDto {
 
 export abstract class PagedListingComponent extends BaseComponent {
     // @ViewChild(MatPaginator) paginatorElement: MatPaginator | undefined
+    router = inject(Router)
+    route = inject(ActivatedRoute)
     public pageSize = 5
     public pageNumber = 1
     public totalPages = 1
     public totalItems = 100
     public isTableLoading = false
     public pageSizeOptions: number[] = [5 ,10, 20, 50, 100, 200]
+    paramObj = {
+        limit: 10,
+        page: 1,
+        query: '',
+        done: -1
+    }
     // public sortCol = ''
     // public sortDirection = ''
 
@@ -67,7 +77,38 @@ export abstract class PagedListingComponent extends BaseComponent {
         this.refresh()
     }
 
+    pageChangedV2(page: PageEvent) {
+        this.router.navigate([], {
+            queryParams: {
+                page: page.pageIndex + 1,
+                limit: page.pageSize,
+                query: this.paramObj.query
+            }
+        })
+        this.pageNumber = page.pageIndex + 1
+        this.pageSize = page.pageSize
+        this.refresh()
+    }
+
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
     protected abstract list(request: PagedRequestDto, pageNumber: number, finishedCallback: Function): void
 
     protected abstract delete(entity: any): void
+
+    paramsChanged() {
+        const paramSubs = this.route.queryParams.subscribe((params) => {
+            if (params['page']) {
+                this.pageNumber = params['page']
+            }
+            if (params['limit']) {
+                this.pageSize = params['limit']
+            }
+            if (params['query']) {
+                this.paramObj.query = params['query']
+            }
+        })
+        this.destroyRef.onDestroy(() => {
+            paramSubs.unsubscribe();
+        })
+    }
 }
