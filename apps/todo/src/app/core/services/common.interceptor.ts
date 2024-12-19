@@ -1,10 +1,10 @@
 import {inject, Injectable} from '@angular/core';
 import {
-  HttpEvent,
-  HttpHandler,
-  HttpHandlerFn, HttpHeaders,
-  HttpInterceptor,
-  HttpRequest
+    HttpEvent,
+    HttpHandler,
+    HttpHandlerFn, HttpHeaders,
+    HttpInterceptor,
+    HttpRequest
 } from '@angular/common/http';
 import {catchError, finalize, Observable, throwError} from 'rxjs';
 import {CookieStorageService} from "./cookie-storage.service";
@@ -13,53 +13,59 @@ import {Router} from "@angular/router";
 
 @Injectable()
 export class CommonInterceptor implements HttpInterceptor {
-  private readonly requests: Array<HttpRequest<any>> = []
-  router = inject(Router)
-  constructor(private cookieService: CookieStorageService) {
-  }
+    private readonly requests: Array<HttpRequest<any>> = []
+    router = inject(Router)
 
-  intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    const authToken = this.cookieService.getCookie(AUTH_TOKEN);
-    // Clone the request to add the new header
-    let headers = new HttpHeaders()
-    if (!request.headers.has('Content-Type')) {
-      headers = headers.append('Content-Type', 'application/json');
-    }
-    if (authToken) {
-      headers = headers.append('Authorization', 'Bearer ' + authToken);
+    constructor(private cookieService: CookieStorageService) {
     }
 
-    const cloneRequest = request.clone({headers})
-    const authRequest = cloneRequest
-    this.requests.push(authRequest)
+    intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+        const authToken = this.cookieService.getCookie(AUTH_TOKEN);
+        // Clone the request to add the new header
+        let headers = new HttpHeaders()
+        // if (!request.headers.has('Content-Type')) {
+        //   headers = headers.append('Content-Type', 'application/json');
+        // }
+        if (authToken) {
+            headers = headers.append('Authorization', 'Bearer ' + authToken);
+        }
 
-    return next.handle(cloneRequest)
-      .pipe(
-        catchError((error: any) => {
-            if (error.status === 401) {
-              // Handle 401 error
-              // Todo: show toast error
-              alert(`Error: ${error.error}. Message: ${error.message}`)
-              this.cookieService.deleteCookie(AUTH_TOKEN);
-              this.router.navigate(['/login']);
-              return throwError(() => new Error())
-            } else if (error.status === 400) {
-                // Handle 400 error
-                alert(`Error: ${error.error}. Message: ${error.message}`)
-                return throwError(() => new Error())
-            }
-            return throwError(() => new Error())
-        }),
-        finalize(() => {
-          const index = this.requests.indexOf(authRequest)
-          if (index >= 0) {
-            this.requests.splice(index, 1)
-          }
-        })
-      )
-  }
+        const cloneRequest = request.clone({headers})
+        const authRequest = cloneRequest
+        this.requests.push(authRequest)
+
+        return next.handle(cloneRequest)
+            .pipe(
+                catchError((error: any) => {
+                    if (error.status === 401) {
+                        // Handle 401 error
+                        // Todo: show toast error
+                        alert(`Error: ${error.error}. Message: ${error.message}`)
+                        this.cookieService.deleteCookie(AUTH_TOKEN);
+                        this.router.navigate(['/login']);
+                        return throwError(() => new Error())
+                    } else if (error.status === 422) {
+                        // Handle 422 error
+                        alert(`Unprocessable Content`)
+                        return throwError(() => new Error())
+                    } else {
+                        // Handle 400 error
+                        console.log('Error', error)
+                        alert(`Error: ${error.error}. Message: ${error.message}`)
+                        return throwError(() => new Error())
+                    }
+                    // return throwError(() => new Error())
+                }),
+                finalize(() => {
+                    const index = this.requests.indexOf(authRequest)
+                    if (index >= 0) {
+                        this.requests.splice(index, 1)
+                    }
+                })
+            )
+    }
 }
 
 export function commonInterceptor(req: HttpRequest<any>, next: HttpHandlerFn): Observable<HttpEvent<any>> {
-  return next(req);
+    return next(req);
 }

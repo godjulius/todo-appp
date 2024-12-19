@@ -1,4 +1,4 @@
-import {Component, DestroyRef, inject, input, output} from '@angular/core';
+import {Component, DestroyRef, inject, input, OnChanges, output, SimpleChanges} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {MatFormField, MatLabel, MatSuffix} from "@angular/material/form-field";
 import {MatIcon} from "@angular/material/icon";
@@ -13,7 +13,7 @@ import {BehaviorSubject, debounceTime, distinctUntilChanged} from "rxjs";
     templateUrl: './common-search.component.html',
     styleUrl: './common-search.component.scss',
 })
-export class CommonSearchComponent {
+export class CommonSearchComponent implements OnChanges {
     filterChange = output<string>()
     label = input<string>('')
     query = input<string>('')
@@ -34,6 +34,12 @@ export class CommonSearchComponent {
         this.destroyRef.onDestroy(() => {
             outputSubs.unsubscribe()
         })
+    }
+
+    ngOnChanges(changes: SimpleChanges) {
+        if (changes['query']) {
+            console.log(changes['query'])
+        }
     }
 
     handleInput(event: any) {

@@ -1,0 +1,38 @@
+<div class="toasts-container">
+<!--    <button (click)="addSuccessMsg()">-->
+<!--        Success-->
+<!--    </button>-->
+<!--    <button (click)="addInfoMsg()">-->
+<!--        Info-->
+<!--    </button>-->
+<!--    <button (click)="addErrorMsg()">-->
+<!--        Error-->
+<!--    </button>-->
+    @for (msg of toastMsgService.messages(); track msg.id) {
+        <div class="toast"
+             [ngClass]="msg.type === ToastMsgType.SUCCESS ? 'toast-success' : msg.type === ToastMsgType.ERROR ? 'toast-error' : 'toast-info'">
+            <div class="toast__icon">
+                @switch (msg.type) {
+                    @case (ToastMsgType.SUCCESS) {
+                        <mat-icon>check_circle</mat-icon>
+                    }
+                    @case (ToastMsgType.INFO) {
+                        <mat-icon>info</mat-icon>
+                    }
+                    @case (ToastMsgType.ERROR) {
+                        <mat-icon>error</mat-icon>
+                    }
+                }
+            </div>
+            <div class="toast__body">
+                <h3 class="toast__title">{{ msg.title }}</h3>
+                <p class="toast__message line-climb-2">
+                    {{ msg.message }}
+                </p>
+            </div>
+            <div class="toast__close" (click)="toastMsgService.close(msg)">
+                <mat-icon>close</mat-icon>
+            </div>
+        </div>
+    }
+</div>

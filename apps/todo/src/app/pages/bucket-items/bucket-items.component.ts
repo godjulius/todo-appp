@@ -91,6 +91,7 @@ export class BucketItemsComponent extends PagedListingComponent implements OnIni
     }
 
     setTabParam(tabindex: string) {
+        console.log(this.paramObj)
         switch (tabindex) {
             case '1':
                 this.paramObj.done = 1
@@ -115,6 +116,7 @@ export class BucketItemsComponent extends PagedListingComponent implements OnIni
             if (params['tab']) {
                 this.indexTab = params['tab']
                 if (!params['query']) {
+                    this.paramObj.query = ''
                     this.setTabParam(params['tab'])
                 } else {
                     this.paramObj.query = params['query']
@@ -138,7 +140,8 @@ export class BucketItemsComponent extends PagedListingComponent implements OnIni
         })
         this.pageNumber = page.pageIndex + 1
         this.pageSize = page.pageSize
-        this.refresh()
+        // no require refresh because of paramsChangedV2 already handle it
+        // this.refresh()
     }
 
     openEditBucketDialog(task: any) {
@@ -151,6 +154,14 @@ export class BucketItemsComponent extends PagedListingComponent implements OnIni
                 console.log('total page', totalPage);
                 this.pageNumber = this.pageNumber - (this.pageNumber > totalPage ? 1 : 0)
                 console.log('new page number', this.pageNumber);
+                this.router.navigate([], {
+                    relativeTo: this.route, queryParams: {
+                        page: this.pageNumber,
+                        limit: this.pageSize,
+                        tab: this.indexTab,
+                        query: this.paramObj.query
+                    }
+                })
             }
             if (isDelete) {
             this.refresh()

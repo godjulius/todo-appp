@@ -8,9 +8,10 @@ import {AppLoadingComponent} from "./shared/app-loading/app-loading.component";
 import {LoadingService} from "./shared/app-loading/loading.service";
 import {LocalStorageService} from "./core/services/local-storage.service";
 import {LANGUAGE} from "./core/constant/AppConstant";
+import {ToastMsgComponent} from "./shared/toast-msg/toast-msg.component";
 @Component({
   standalone: true,
-  imports: [RouterModule, MatButtonModule, MatDividerModule, MatIconModule, TranslateModule, AppLoadingComponent],
+  imports: [RouterModule, MatButtonModule, MatDividerModule, MatIconModule, TranslateModule, AppLoadingComponent, ToastMsgComponent],
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',

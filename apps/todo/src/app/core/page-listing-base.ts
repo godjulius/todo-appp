@@ -87,7 +87,8 @@ export abstract class PagedListingComponent extends BaseComponent {
         })
         this.pageNumber = page.pageIndex + 1
         this.pageSize = page.pageSize
-        this.refresh()
+        //no require refresh because of paramsChanged already handle it
+        // this.refresh()
     }
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
@@ -105,7 +106,10 @@ export abstract class PagedListingComponent extends BaseComponent {
             }
             if (params['query']) {
                 this.paramObj.query = params['query']
+            } else {
+                this.paramObj.query = ''
             }
+            this.refresh()
         })
         this.destroyRef.onDestroy(() => {
             paramSubs.unsubscribe();

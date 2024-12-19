@@ -60,7 +60,7 @@ export class MainPageComponent implements OnInit {
         id: -1,
         username: '',
         email: '',
-        avatar: ''
+        avatar: null
     });
     readonly PAGE_LIST = PAGE_LIST;
     cookieStorageService = inject(CookieStorageService);

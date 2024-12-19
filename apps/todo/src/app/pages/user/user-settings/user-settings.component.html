@@ -3,7 +3,11 @@
 
     <div class="form-group avatar-image-settings d-flex align-items-center justify-content-evenly ">
       <mat-label>Your avatar</mat-label>
-      <img (error)="handleErrorAvatar()" [src]="avatarUrl" alt="Avatar" class="avatar-image">
+        @if(avatarUrl) {
+            <img (error)="handleErrorAvatar()" [src]="avatarUrl" alt="Avatar" class="avatar-image">
+        } @else {
+            <img src="/assets/images/default_avt.jpg" alt="Avatar" class="avatar-image">
+        }
       <button type="button" mat-raised-button (click)="fileInput.click()">Choose File</button>
 <!--      <input hidden (change)="onFileSelected($event)" #fileInput type="file" id="file" formControlName="avatar">-->
       <input hidden (change)="onFileSelected($event)" #fileInput type="file" id="file">
@@ -26,14 +30,14 @@
       </mat-form-field>
     </div>
 
-    <div class="form-group">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Password</mat-label>
-        <input type="password" matInput formControlName="password" required autocomplete="off">
-        <mat-error *ngIf="profileForm.get('password')?.hasError('required')">Password is required</mat-error>
-      </mat-form-field>
-    </div>
+<!--    <div class="form-group">-->
+<!--      <mat-form-field appearance="outline" class="w-100">-->
+<!--        <mat-label>Password</mat-label>-->
+<!--        <input type="password" matInput formControlName="password" required autocomplete="off">-->
+<!--        <mat-error *ngIf="profileForm.get('password')?.hasError('required')">Password is required</mat-error>-->
+<!--      </mat-form-field>-->
+<!--    </div>-->
 
-    <button mat-raised-button color="primary" type="submit" [disabled]="!profileForm.valid">Update</button>
+    <button mat-raised-button color="primary" type="submit" [disabled]="!profileForm.valid || !profileForm.dirty">Update</button>
   </form>
 </div>

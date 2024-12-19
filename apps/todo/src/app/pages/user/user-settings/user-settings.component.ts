@@ -1,71 +1,119 @@
-import {Component, inject, signal} from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {Component, inject, OnInit, signal} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {MatError, MatFormField, MatLabel} from "@angular/material/form-field";
 import {ReactiveFormsModule} from "@angular/forms";
 import {MatInput} from "@angular/material/input";
 import {MatButton} from "@angular/material/button";
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import {IProfile} from "../../../shared/services/account.service";
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {AccountService, IProfile} from "../../../shared/services/account.service";
+import {Store} from "@ngrx/store";
+import {updateProfile} from "../../../store/user.action";
+import {BaseComponent} from "../../../core/base.component";
+import {finalize} from "rxjs";
+import { ToastMsgType } from '../../../shared/toast-msg/toast-msg.service';
+
 @Component({
-  selector: 'app-user-settings',
-  standalone: true,
-  imports: [CommonModule, MatFormField, ReactiveFormsModule, MatInput, MatButton, MatLabel, MatError],
-  templateUrl: './user-settings.component.html',
-  styleUrl: './user-settings.component.scss',
+    selector: 'app-user-settings',
+    standalone: true,
+    imports: [CommonModule, MatFormField, ReactiveFormsModule, MatInput, MatButton, MatLabel, MatError],
+    templateUrl: './user-settings.component.html',
+    styleUrl: './user-settings.component.scss',
 })
-export class UserSettingsComponent {
-  matData: IProfile = inject(MAT_DIALOG_DATA);
-  dialogRef = inject(MatDialogRef<UserSettingsComponent>)
-  private fb = inject(FormBuilder);
-  profileForm: FormGroup;
-  avatarUrl: string | ArrayBuffer | null = '';
-  avatarData: File | null = null;
-  constructor() {
-    this.profileForm = this.fb.group({
-      username: [this.matData.username, Validators.required],
-      email: [this.matData.email, [Validators.required, Validators.email]],
-      password: ['', Validators.required],
-      avatar: [null]
-    });
-  }
+export class UserSettingsComponent extends BaseComponent implements OnInit {
+    matData: IProfile = inject(MAT_DIALOG_DATA);
+    dialogRef = inject(MatDialogRef<UserSettingsComponent>)
+    accountService = inject(AccountService);
+    private fb = inject(FormBuilder);
+    store = inject(Store<{ profile: IProfile }>)
+    profileForm: FormGroup;
+    avatarUrl: string | undefined = '';
+    avatarData: File | null = null;
 
-  // onFileSelected(event: Event): void {
-  //   const file = (event.target as HTMLInputElement).files?.[0];
-  //   if (file) {
-  //     const reader = new FileReader();
-  //     reader.onload = () => {
-  //       this.avatarUrl = reader.result;
-  //       this.profileForm.patchValue({ avatar: file });
-  //     };
-  //     reader.readAsDataURL(file);
-  //   }
-  // }
-
-  onFileSelected(event: Event): void {
-    const inputNode = event.target as HTMLInputElement;
-    if (typeof (FileReader) !== 'undefined') {
-      const reader = new FileReader();
-
-      reader.onload = (e: any) => {
-        this.avatarUrl = e.target.result;
-          this.profileForm.patchValue({ avatar: this.avatarUrl });
-      };
-      if (inputNode.files) {
-      reader.readAsDataURL(inputNode.files[0]);
-      this.avatarData = inputNode.files[0];
-      this.profileForm.patchValue({ avatar: this.avatarData });
-      }
+    constructor() {
+        super();
+        this.profileForm = this.fb.group({
+            username: [this.matData.username, Validators.required],
+            email: [this.matData.email, [Validators.required, Validators.email]],
+            // password: ['', Validators.required],
+            avatar: [null]
+        });
     }
-  }
 
-  onSubmit(): void {
-    if (this.profileForm.valid) {
-      console.log(this.profileForm.value);
+    ngOnInit() {
+        this.getAvatar();
     }
-  }
 
-  handleErrorAvatar() {
-    this.avatarUrl = './assets/images/default_avt.jpg';
-  }
+    onFileSelected(event: Event): void {
+        this.profileForm.markAsDirty();
+        const inputNode = event.target as HTMLInputElement;
+        if (typeof (FileReader) !== 'undefined') {
+            const reader = new FileReader();
+
+            reader.onload = (e: any) => {
+                // display image after chossing it
+                this.avatarUrl = e.target.result;
+            };
+            if (inputNode.files) {
+                reader.readAsDataURL(inputNode.files[0]);
+                this.avatarData = inputNode.files[0];
+                this.profileForm.patchValue({avatar: this.avatarData});
+            }
+        }
+    }
+
+    onSubmit(): void {
+        if (this.profileForm.valid) {
+            const formData = new FormData();
+            formData.append('username', this.profileForm.value.username);
+            formData.append('email', this.profileForm.value.email);
+            if (this.avatarData) {
+                formData.append('avatar', this.avatarData);
+            }
+            this.loadingService.startLoading();
+            const updateSubs = this.accountService.updateProfile(formData)
+                .pipe(
+                    finalize(() => {
+                        this.loadingService.stopLoading();
+                        this.toastMsgService.addSuccess({title: 'Success', message: 'Update profile successfully'});
+                        this.dialogRef.close(true);
+                    })
+                )
+                .subscribe((res) => {
+                    this.store.dispatch(updateProfile({...this.matData, ...this.profileForm.value}));
+            })
+
+            this.destroyRef.onDestroy(() => {
+                updateSubs.unsubscribe();
+            })
+        }
+    }
+
+    handleErrorAvatar() {
+        // this.avatarUrl = './assets/images/default_avt.jpg';
+    }
+
+    getAvatar() {
+        const avatarSubs = this.accountService.getAvatar().subscribe((blob: any) => {
+            this.avatarUrl = blob
+            this.avatarData = this.base64ToFile(blob, 'avatar');
+        })
+        this.destroyRef.onDestroy(() => {
+            avatarSubs.unsubscribe();
+        })
+    }
+
+    private base64ToFile(base64: string, filename: string): File {
+        const byteString = atob(base64.split(',')[1]);
+        const mimeString = base64.split(',')[0].split(':')[1].split(';')[0];
+        const ab = new ArrayBuffer(byteString.length);
+        const ia = new Uint8Array(ab);
+
+        for (let i = 0; i < byteString.length; i++) {
+            ia[i] = byteString.charCodeAt(i);
+        }
+
+        return new File([ab], filename, { type: mimeString });
+    }
 }
+

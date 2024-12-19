@@ -8,6 +8,7 @@
                 <app-common-search
                     label="Search bucket"
                     (filterChange)="handleSearchBucket($event)"
+                    [query]="paramObj.query"
                 >
                 </app-common-search>
                 </div>

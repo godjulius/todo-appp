@@ -81,6 +81,13 @@ export class BucketsComponent extends PagedListingComponent implements OnInit {
                 console.log('total page', totalPage);
                 this.pageNumber = this.pageNumber - (this.pageNumber > totalPage ? 1 : 0)
                 console.log('new page number', this.pageNumber);
+                this.router.navigate([], {
+                    relativeTo: this.route, queryParams: {
+                        page: this.pageNumber,
+                        limit: this.pageSize,
+                        query: this.paramObj.query
+                    }
+                });
             }
             if (isDelete) {
                 this.refresh()
@@ -118,18 +125,4 @@ export class BucketsComponent extends PagedListingComponent implements OnInit {
             }
         })
     }
-
-    // paramsChanged() {
-    //     const paramSubs = this.route.queryParams.subscribe((params) => {
-    //         if (params['page']) {
-    //             this.pageNumber = params['page']
-    //         }
-    //         if (params['limit']) {
-    //             this.pageSize = params['limit']
-    //         }
-    //     })
-    //     this.destroyRef.onDestroy(() => {
-    //         paramSubs.unsubscribe();
-    //     })
-    // }
 }

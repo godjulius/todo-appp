@@ -22,6 +22,17 @@ export class AccountService {
     const url = `${BASE_URL}/me`;
     return this.httpClient.get(url);
   }
+
+  getAvatar() {
+    const url = `${BASE_URL}/me/avatar`;
+      return this.httpClient.get(url, {responseType: 'text'});
+  }
+
+  updateProfile(formData: FormData) {
+    const url = `${BASE_URL}/me/update`;
+      return this.httpClient.post(url, formData);
+    //content-type: multipart/form-data
+  }
 }
 
 export interface ISignInBody {
@@ -39,5 +50,5 @@ export interface IProfile {
   id: number,
   username: string,
   email: string,
-  avatar: string
+  avatar: File | string | null
 }
