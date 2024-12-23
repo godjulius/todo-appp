@@ -13,7 +13,7 @@ import {BehaviorSubject, debounceTime, distinctUntilChanged} from "rxjs";
     templateUrl: './common-search.component.html',
     styleUrl: './common-search.component.scss',
 })
-export class CommonSearchComponent implements OnChanges {
+export class CommonSearchComponent {
     filterChange = output<string>()
     label = input<string>('')
     query = input<string>('')
@@ -26,7 +26,6 @@ export class CommonSearchComponent implements OnChanges {
                 distinctUntilChanged()
             )
             .subscribe((value) => {
-                // console.log(value)
                 if (value !== undefined) {
                     this.filterChange.emit(value)
                 }
@@ -34,12 +33,6 @@ export class CommonSearchComponent implements OnChanges {
         this.destroyRef.onDestroy(() => {
             outputSubs.unsubscribe()
         })
-    }
-
-    ngOnChanges(changes: SimpleChanges) {
-        if (changes['query']) {
-            console.log(changes['query'])
-        }
     }
 
     handleInput(event: any) {

@@ -1,5 +1,5 @@
 import {Component, inject, signal} from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {CommonModule} from '@angular/common';
 import {FormsModule} from "@angular/forms";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
@@ -18,7 +18,7 @@ import {finalize} from "rxjs";
     templateUrl: './bucket-items-edit.component.html',
     styleUrl: './bucket-items-edit.component.scss',
 })
-export class BucketItemsEditComponent extends BaseComponent{
+export class BucketItemsEditComponent extends BaseComponent {
     matData = inject(MAT_DIALOG_DATA)
     bucketsService = inject(BucketsService)
     dialogRef = inject(MatDialogRef<BucketItemsEditComponent>)
@@ -28,7 +28,6 @@ export class BucketItemsEditComponent extends BaseComponent{
 
     constructor() {
         super()
-        console.log(this.matData)
         if (this.matData && !this.matData.isCreate) {
             this.title.set(this.matData.content)
             this.isDone.set(this.matData.done)
@@ -48,9 +47,11 @@ export class BucketItemsEditComponent extends BaseComponent{
                     this.loadingService.stopLoading()
                 })
             )
-            .subscribe((res) => {
-                console.log(res)
-                this.dialogRef.close(true);
+            .subscribe((res: any) => {
+                if (res) {
+                    this.toastMsgService.addSuccess({ title: 'Success', message: `Item "${this.title()}" created successfully with id ${res.data.id}` })
+                    this.dialogRef.close(true);
+                }
             })
         this.destroyRef.onDestroy(() => {
             createSubs.unsubscribe()
@@ -69,9 +70,11 @@ export class BucketItemsEditComponent extends BaseComponent{
                     this.loadingService.stopLoading()
                 })
             )
-            .subscribe((res) => {
-                console.log(res)
-                this.dialogRef.close(true);
+            .subscribe((res: any) => {
+                if (res) {
+                    this.toastMsgService.addSuccess({ title: 'Success', message: `Item "${this.matData.id}" updated successfully` })
+                    this.dialogRef.close('update');
+                }
             })
 
         this.destroyRef.onDestroy(() => {
@@ -88,8 +91,10 @@ export class BucketItemsEditComponent extends BaseComponent{
                 })
             )
             .subscribe((res) => {
-                console.log(res)
-                this.dialogRef.close(true);
+                if (res) {
+                    this.toastMsgService.addSuccess({ title: 'Success', message: `Item "${this.matData.id}" deleted successfully` })
+                    this.dialogRef.close('delete');
+                }
             })
 
         this.destroyRef.onDestroy(() => {

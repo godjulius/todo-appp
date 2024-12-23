@@ -60,7 +60,7 @@ export class BucketItemsComponent extends PagedListingComponent implements OnIni
             .subscribe((res: any) => {
                 this.taskList.set(res.data)
                 this.totalItems = res.total
-                if (((request.page || 0 ) - 1) * (request.limit || 0) > res.total) {
+                if (((request.page || 0) - 1) * (request.limit || 0) > res.total) {
                     this.router.navigate([], {
                         queryParams: {
                             page: 1,
@@ -91,7 +91,6 @@ export class BucketItemsComponent extends PagedListingComponent implements OnIni
     }
 
     setTabParam(tabindex: string) {
-        console.log(this.paramObj)
         switch (tabindex) {
             case '1':
                 this.paramObj.done = 1
@@ -147,13 +146,10 @@ export class BucketItemsComponent extends PagedListingComponent implements OnIni
     openEditBucketDialog(task: any) {
         this.dialog.open(BucketItemsEditComponent, {
             data: task
-        }).afterClosed().subscribe((isDelete) => {
-            if (isDelete && this.totalItems % this.pageSize === 1) {
-                console.log('page number', this.pageNumber);
-                const totalPage = (this.totalItems - 1) / this.pageSize
-                console.log('total page', totalPage);
+        }).afterClosed().subscribe((type) => {
+            if (type === 'delete' && this.totalItems % this.pageSize === 1) {
+                const totalPage = Math.floor((this.totalItems - 1) / this.pageSize)
                 this.pageNumber = this.pageNumber - (this.pageNumber > totalPage ? 1 : 0)
-                console.log('new page number', this.pageNumber);
                 this.router.navigate([], {
                     relativeTo: this.route, queryParams: {
                         page: this.pageNumber,
@@ -161,10 +157,12 @@ export class BucketItemsComponent extends PagedListingComponent implements OnIni
                         tab: this.indexTab,
                         query: this.paramObj.query
                     }
+                }).then(() => {
+                    this.refresh()
                 })
             }
-            if (isDelete) {
-            this.refresh()
+            if (type) {
+                this.refresh()
             }
         });
     }
@@ -177,8 +175,18 @@ export class BucketItemsComponent extends PagedListingComponent implements OnIni
             }
         }).afterClosed().subscribe((isReload) => {
             if (isReload) {
-                this.pageNumber = 1
-                this.refresh()
+                const totalPage = Math.floor((this.totalItems + 1) / this.pageSize) + ((this.totalItems + 1) % this.pageSize !== 0 ? 1 : 0)
+                this.pageNumber = this.pageNumber < totalPage ? totalPage : this.pageNumber
+                this.router.navigate([], {
+                    relativeTo: this.route, queryParams: {
+                        page: this.pageNumber,
+                        limit: this.pageSize,
+                        tab: this.indexTab,
+                        query: this.paramObj.query
+                    }
+                }).then(() => {
+                    this.refresh()
+                })
             }
         });
     }

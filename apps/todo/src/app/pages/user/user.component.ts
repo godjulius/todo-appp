@@ -40,10 +40,10 @@ export class UserComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.getAvatar();
+        // this.getAvatar();
         const profileSubs = this.profile$.subscribe((profile) => {
             this.profile.set(profile);
-            this.avatarUrl += profile.avatar
+            this.avatarUrl = profile.avatar || ''
         })
         this.destroyRef.onDestroy(() => {
             profileSubs.unsubscribe();
@@ -71,7 +71,7 @@ export class UserComponent implements OnInit {
     }
 
     handleErrorAvatar() {
-        this.avatarUrl = './assets/images/default_avt.jpg';
+        this.avatarUrl = './assets/images/avatar-default.svg';
     }
 
 }

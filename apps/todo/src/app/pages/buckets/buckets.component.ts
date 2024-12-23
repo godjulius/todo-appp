@@ -49,9 +49,7 @@ export class BucketsComponent extends PagedListingComponent implements OnInit {
             .subscribe((res: any) => {
                 this.buckets.set(res.data)
                 this.totalItems = res.total
-                console.log(res)
                 if (request.page && request.limit && (request.page - 1) * (request.limit) > res.total) {
-                    console.log(request)
                     this.router.navigate([], {
                         queryParams: {
                             page: 1,
@@ -74,13 +72,10 @@ export class BucketsComponent extends PagedListingComponent implements OnInit {
     openEditBucketDialog(bucket: any) {
         this.dialog.open(BucketsEditComponent, {
             data: bucket
-        }).afterClosed().subscribe((isDelete) => {
-            if (isDelete && this.totalItems % this.pageSize === 1) {
-                console.log('page number', this.pageNumber);
+        }).afterClosed().subscribe((type) => {
+            if (type === 'delete' && this.totalItems % this.pageSize === 1) {
                 const totalPage = (this.totalItems - 1) / this.pageSize
-                console.log('total page', totalPage);
                 this.pageNumber = this.pageNumber - (this.pageNumber > totalPage ? 1 : 0)
-                console.log('new page number', this.pageNumber);
                 this.router.navigate([], {
                     relativeTo: this.route, queryParams: {
                         page: this.pageNumber,
@@ -89,7 +84,7 @@ export class BucketsComponent extends PagedListingComponent implements OnInit {
                     }
                 });
             }
-            if (isDelete) {
+            if (type) {
                 this.refresh()
             }
         });
@@ -108,13 +103,19 @@ export class BucketsComponent extends PagedListingComponent implements OnInit {
         this.dialog.open(BucketsEditComponent).afterClosed().subscribe((isReload) => {
             if (isReload) {
                 this.pageNumber = 1
-                this.refresh()
+                this.router.navigate([], {
+                    queryParams: {
+                        page: 1,
+                        limit: this.pageSize,
+                        query: ''
+                }}).then(() => {
+                    this.refresh()
+                })
             }
         });
     }
 
     handleSearchBucket(query: string) {
-        console.log(query)
         this.paramObj.query = query
         this.handleSearch()
         this.router.navigate([], {

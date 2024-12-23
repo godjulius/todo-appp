@@ -52,8 +52,8 @@ export class BucketsEditComponent extends BaseComponent{
             )
             .subscribe(
             (res: any) => {
-                console.log(res);
-                this.dialogRef.close(true);
+                this.toastMsgService.addSuccess({ title: 'Success', message: `Bucket "${this.title}" updated successfully` })
+                this.dialogRef.close('update');
             }
         )
             this.destroyRef.onDestroy(() => {
@@ -75,7 +75,7 @@ export class BucketsEditComponent extends BaseComponent{
             )
             .subscribe(
             (res: any) => {
-                console.log(res);
+                this.toastMsgService.addSuccess({ title: 'Success', message: `Bucket "${this.title}" created successfully with id ${res.data.id}` })
                 this.dialogRef.close(true);
             }
         )
@@ -94,8 +94,8 @@ export class BucketsEditComponent extends BaseComponent{
             )
             .subscribe(
             (res: any) => {
-                console.log(res);
-                this.dialogRef.close(true);
+                this.toastMsgService.addSuccess({ title: 'Success', message: `Bucket "${this.title}" deleted successfully` })
+                this.dialogRef.close('delete');
             }
         )
         this.destroyRef.onDestroy(() => {

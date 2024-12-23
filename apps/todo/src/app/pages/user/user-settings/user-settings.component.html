@@ -6,7 +6,7 @@
         @if(avatarUrl) {
             <img (error)="handleErrorAvatar()" [src]="avatarUrl" alt="Avatar" class="avatar-image">
         } @else {
-            <img src="/assets/images/default_avt.jpg" alt="Avatar" class="avatar-image">
+            <img src="/assets/images/avatar-default.svg" alt="Avatar" class="avatar-image">
         }
       <button type="button" mat-raised-button (click)="fileInput.click()">Choose File</button>
 <!--      <input hidden (change)="onFileSelected($event)" #fileInput type="file" id="file" formControlName="avatar">-->

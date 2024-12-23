@@ -15,10 +15,12 @@ import {MatInput, MatInputModule} from "@angular/material/input";
 import {CookieStorageService} from '../../core/services/cookie-storage.service';
 import {AUTH_TOKEN, PAGE_LIST} from "../../core/constant/AppConstant";
 import {Store} from "@ngrx/store";
-import {Observable} from "rxjs";
-import {IProfile} from "../../shared/services/account.service";
+import {finalize, Observable} from "rxjs";
+import {AccountService, IProfile} from "../../shared/services/account.service";
 import {selectProfile} from "../../store/user.selector";
 import {TranslatePipe} from "@ngx-translate/core";
+import {setAvatar} from "../../store/user.action";
+import {BaseComponent} from "../../core/base.component";
 
 @Component({
     selector: 'app-main-page',
@@ -51,7 +53,7 @@ import {TranslatePipe} from "@ngx-translate/core";
     templateUrl: './main-page.component.html',
     styleUrl: './main-page.component.scss',
 })
-export class MainPageComponent implements OnInit {
+export class MainPageComponent extends BaseComponent implements OnInit {
     @ViewChild(MatSidenav)
     sidenav!: MatSidenav;
     isMobile = false;
@@ -66,12 +68,13 @@ export class MainPageComponent implements OnInit {
     cookieStorageService = inject(CookieStorageService);
     router = inject(Router);
     route = inject(ActivatedRoute)
-    destroyRef = inject(DestroyRef);
+    accountService = inject(AccountService);
 
     constructor(
         private observer: BreakpointObserver,
         private store: Store<{ profile: IProfile }>,
     ) {
+        super()
         this.profile$ = this.store.select(selectProfile);
     }
 
@@ -81,8 +84,26 @@ export class MainPageComponent implements OnInit {
         this.observer.observe(['(max-width: 800px)']).subscribe((screenSize) => {
             this.isMobile = screenSize.matches;
         });
+        this.getProfile()
+    }
+
+    getProfile() {
         this.store.dispatch({type: '[Profile] Init'});
+        this.loadingService.startLoading();
+        const avatarSubs = this.accountService.getAvatar()
+            .pipe(
+                finalize(() => {
+                    this.loadingService.stopLoading();
+                })
+            )
+            .subscribe((avatar) => {
+            this.store.dispatch(setAvatar({avatar: avatar}))
+        });
+        this.destroyRef.onDestroy(() => {
+            avatarSubs.unsubscribe();
+        })
         const profileSubs = this.profile$.subscribe((profile) => {
+            console.log('Profile', profile);
             this.profile.set(profile);
         })
         this.destroyRef.onDestroy(() => {

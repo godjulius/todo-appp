@@ -10,11 +10,13 @@ import {catchError, finalize, Observable, throwError} from 'rxjs';
 import {CookieStorageService} from "./cookie-storage.service";
 import {AUTH_TOKEN} from "../constant/AppConstant";
 import {Router} from "@angular/router";
+import {ToastMsgService} from "../../shared/toast-msg/toast-msg.service";
 
 @Injectable()
 export class CommonInterceptor implements HttpInterceptor {
     private readonly requests: Array<HttpRequest<any>> = []
     router = inject(Router)
+    toastMsgService = inject(ToastMsgService)
 
     constructor(private cookieService: CookieStorageService) {
     }
@@ -40,18 +42,17 @@ export class CommonInterceptor implements HttpInterceptor {
                     if (error.status === 401) {
                         // Handle 401 error
                         // Todo: show toast error
-                        alert(`Error: ${error.error}. Message: ${error.message}`)
+                        this.toastMsgService.addError({title: 'Error', message: `Unauthorized`})
                         this.cookieService.deleteCookie(AUTH_TOKEN);
                         this.router.navigate(['/login']);
                         return throwError(() => new Error())
                     } else if (error.status === 422) {
                         // Handle 422 error
-                        alert(`Unprocessable Content`)
+                        this.toastMsgService.addError({title: 'Error', message: `Unprocessable Content`})
                         return throwError(() => new Error())
                     } else {
                         // Handle 400 error
-                        console.log('Error', error)
-                        alert(`Error: ${error.error}. Message: ${error.message}`)
+                        this.toastMsgService.addError({title: 'Error', message: `Bad Request, ${error.error}`})
                         return throwError(() => new Error())
                     }
                     // return throwError(() => new Error())

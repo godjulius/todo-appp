@@ -13,8 +13,7 @@ export class ToastMsgService {
         }, 7000)
     }
 
-    addSuccess(rawMessage: any) {
-        console.log(rawMessage);
+    addSuccess(rawMessage: IRawMsg) {
         const msg = new Message({title: rawMessage.title, message: rawMessage.message, type: ToastMsgType.SUCCESS});
         this.add(msg);
     }
@@ -24,8 +23,8 @@ export class ToastMsgService {
         this.add(msg);
     }
 
-    addError(title: string, message: string) {
-        const msg = new Message({title, message, type: ToastMsgType.ERROR});
+    addError(rawMessage: IRawMsg) {
+        const msg = new Message({title: rawMessage.title, message: rawMessage.message, type: ToastMsgType.ERROR});
         this.add(msg);
     }
 
@@ -58,4 +57,9 @@ export enum ToastMsgType {
     SUCCESS = 'success',
     INFO = 'info',
     ERROR = 'error'
+}
+
+export interface IRawMsg {
+    title: string;
+    message: string;
 }

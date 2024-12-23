@@ -68,7 +68,7 @@ export abstract class PagedListingComponent extends BaseComponent {
     handleSearch() {
         this.pageNumber = 1
         // this.paginatorElement!.pageIndex = this.pageNumber - 1
-        this.refresh()
+        // this.refresh()
     }
 
     public pageChanged(page: PageEvent) {

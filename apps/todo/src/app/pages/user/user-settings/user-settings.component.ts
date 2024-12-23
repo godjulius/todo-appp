@@ -6,7 +6,7 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {MatInput} from "@angular/material/input";
 import {MatButton} from "@angular/material/button";
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {AccountService, IProfile} from "../../../shared/services/account.service";
+import {AccountService, base64ToFile, IProfile} from "../../../shared/services/account.service";
 import {Store} from "@ngrx/store";
 import {updateProfile} from "../../../store/user.action";
 import {BaseComponent} from "../../../core/base.component";
@@ -96,24 +96,12 @@ export class UserSettingsComponent extends BaseComponent implements OnInit {
     getAvatar() {
         const avatarSubs = this.accountService.getAvatar().subscribe((blob: any) => {
             this.avatarUrl = blob
-            this.avatarData = this.base64ToFile(blob, 'avatar');
+            this.avatarData = base64ToFile(blob, 'avatar');
         })
         this.destroyRef.onDestroy(() => {
             avatarSubs.unsubscribe();
         })
     }
 
-    private base64ToFile(base64: string, filename: string): File {
-        const byteString = atob(base64.split(',')[1]);
-        const mimeString = base64.split(',')[0].split(':')[1].split(';')[0];
-        const ab = new ArrayBuffer(byteString.length);
-        const ia = new Uint8Array(ab);
-
-        for (let i = 0; i < byteString.length; i++) {
-            ia[i] = byteString.charCodeAt(i);
-        }
-
-        return new File([ab], filename, { type: mimeString });
-    }
 }
 
