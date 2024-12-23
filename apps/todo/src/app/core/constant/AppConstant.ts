@@ -3,12 +3,12 @@ export const LANGUAGE = 'language'
 
 export const PAGE_LIST = [
     {
-        languageKey: 'WELCOME',
+        languageKey: 'SIDE_BAR.WELCOME',
         path: '',
         icon: 'auto_stories'
     },
     {
-        languageKey: 'BUCKETS',
+        languageKey: 'SIDE_BAR.BUCKETS',
         path: 'buckets',
         icon: 'view_list'
     }

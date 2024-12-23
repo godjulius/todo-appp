@@ -10,11 +10,12 @@ import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {BucketsService} from "../../../shared/services/buckets.service";
 import {BaseComponent} from "../../../core/base.component";
 import {finalize} from "rxjs";
+import {TranslatePipe} from "@ngx-translate/core";
 
 @Component({
     selector: 'app-bucket-items-edit',
     standalone: true,
-    imports: [CommonModule, FormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatIcon, MatSlideToggleModule],
+    imports: [CommonModule, FormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatIcon, MatSlideToggleModule, TranslatePipe],
     templateUrl: './bucket-items-edit.component.html',
     styleUrl: './bucket-items-edit.component.scss',
 })

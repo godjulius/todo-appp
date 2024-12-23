@@ -1,6 +1,6 @@
 <div class="bucket-container">
     <mat-form-field class="bucket-edit-line">
-        <mat-label>Title</mat-label>
+        <mat-label>{{ 'TITLE' | translate }}</mat-label>
         <input matInput type="text" [(ngModel)]="title" required #bucketTitle="ngModel">
         @if (title) {
             <button matSuffix mat-icon-button aria-label="Clear" (click)="title=''">
@@ -15,13 +15,13 @@
 
         >
             <span [ngClass]="isPublic ? 'status-public-color' : 'status-private-color'">
-            {{ isPublic ? 'Public' : 'Private' }}
+            {{ (isPublic ? 'PUBLIC' : 'PRIVATE') | translate }}
             </span>
         </mat-slide-toggle>
     </div>
     @if (!isCreate) {
         <div class="bucket-edit-line">
-            <span>Create time:</span>
+            <span>{{ 'CREATED_AT' | translate }}:</span>
             <span>{{ matData.createdAt || ''  |  date:'short' }}</span>
         </div>
         <div class="bucket-edit-line">
@@ -31,10 +31,10 @@
     }
     <div class="w-100 d-flex justify-content-between bucket-edit-line">
         @if (isCreate) {
-            <button mat-flat-button (click)="createBucket()" [disabled]="bucketTitle.invalid">Create</button>
+            <button mat-flat-button (click)="createBucket()" [disabled]="bucketTitle.invalid">{{ 'CREATE' | translate }}</button>
         } @else {
-            <button mat-flat-button (click)="updateBucket()" [disabled]="bucketTitle.invalid">Update</button>
-            <button mat-flat-button class="sub-btn" (click)="handleDeleteBucket()">Delete</button>
+            <button mat-flat-button (click)="updateBucket()" [disabled]="bucketTitle.invalid">{{ 'UPDATE' | translate }}</button>
+            <button mat-flat-button class="sub-btn" (click)="handleDeleteBucket()">{{ 'DELETE' | translate }}</button>
         }
     </div>
 </div>

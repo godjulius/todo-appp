@@ -1,12 +1,12 @@
 <section class="h-100" style="background-color: #f4f5f7;">
     <div class="buckets-container">
         <div class="d-flex align-items-center justify-content-between buckets-header">
-            <h1>Buckets list</h1>
+            <h2>{{ 'Buckets_list' | translate }}</h2>
             <div class="d-flex align-items-center justify-content-evenly buckets-features">
                 <div class="buckets-search-field">
 
                 <app-common-search
-                    label="Search bucket"
+                    [label]="'Search_bucket' | translate"
                     (filterChange)="handleSearchBucket($event)"
                     [query]="paramObj.query"
                 >
@@ -16,7 +16,7 @@
 
                     <button mat-raised-button (click)="openAddBucketDialog()">
                         <mat-icon>format_list_bulleted_add</mat-icon>
-                        Add bucket
+                        {{ 'ADD_BUCKET' | translate }}
                     </button>
                 </div>
             </div>
@@ -29,10 +29,10 @@
                         <table class="table text-white mb-0">
                             <thead>
                             <tr>
-                                <th scope="col">Bucket</th>
-                                <th scope="col">Status</th>
-                                <th scope="col">Created date</th>
-                                <th scope="col">Actions</th>
+                                <th scope="col">{{ 'BUCKET' | translate }}</th>
+                                <th scope="col">{{ 'STATUS' | translate }}</th>
+                                <th scope="col">{{ 'CREATED_AT' | translate }}</th>
+                                <th scope="col">{{ 'ACTIONS' | translate }}</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -43,9 +43,9 @@
                                         </td>
                                         <td class="align-middle">
                                             @if (bucket.public) {
-                                                <h6 class="mb-0"><span class="badge bg-success">Public</span></h6>
+                                                <h6 class="mb-0"><span class="badge bg-success">{{ 'PUBLIC' | translate }}</span></h6>
                                             } @else {
-                                                <h6 class="mb-0"><span class="badge bg-danger">Private</span></h6>
+                                                <h6 class="mb-0"><span class="badge bg-danger">{{ 'PRIVATE' | translate }}</span></h6>
                                             }
 
                                         </td>
@@ -56,11 +56,11 @@
                                             <button mat-fab extended (click)="openEditBucketDialog(bucket)"
                                                     class="mr-8">
                                                 <mat-icon>edit</mat-icon>
-                                                edit
+                                                {{ 'EDIT' | translate }}
                                             </button>
                                             <button mat-fab extended (click)="openBucketTasks(bucket)">
                                                 <mat-icon>assignment</mat-icon>
-                                                details
+                                                {{ 'DETAIL' | translate }}
                                             </button>
                                         </td>
                                     </tr>

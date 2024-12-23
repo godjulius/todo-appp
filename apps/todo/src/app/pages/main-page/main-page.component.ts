@@ -1,4 +1,4 @@
-import {Component, DestroyRef, inject, OnInit, signal, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, DestroyRef, inject, OnInit, signal, ViewChild} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {MatButtonModule} from "@angular/material/button";
 import {ActivatedRoute, Router, RouterOutlet} from "@angular/router";
@@ -53,9 +53,9 @@ import {BaseComponent} from "../../core/base.component";
     templateUrl: './main-page.component.html',
     styleUrl: './main-page.component.scss',
 })
-export class MainPageComponent extends BaseComponent implements OnInit {
-    @ViewChild(MatSidenav)
-    sidenav!: MatSidenav;
+export class MainPageComponent extends BaseComponent implements OnInit, AfterViewInit {
+    @ViewChild(MatSidenav)  sidenav!: MatSidenav;
+    @ViewChild(MatExpansionPanel) accountMenuRef!: MatExpansionPanel;
     isMobile = false;
     isCollapsed = false;
     profile = signal<IProfile>({
@@ -87,6 +87,10 @@ export class MainPageComponent extends BaseComponent implements OnInit {
         this.getProfile()
     }
 
+    ngAfterViewInit() {
+        this.accountMenuRef.open();
+    }
+
     getProfile() {
         this.store.dispatch({type: '[Profile] Init'});
         this.loadingService.startLoading();
@@ -97,14 +101,25 @@ export class MainPageComponent extends BaseComponent implements OnInit {
                 })
             )
             .subscribe((avatar) => {
-            this.store.dispatch(setAvatar({avatar: avatar}))
-        });
+                this.store.dispatch(setAvatar({avatar: avatar}))
+            });
         this.destroyRef.onDestroy(() => {
             avatarSubs.unsubscribe();
         })
         const profileSubs = this.profile$.subscribe((profile) => {
             console.log('Profile', profile);
             this.profile.set(profile);
+            if (profile.avatar === '') {
+                this.accountService.getAvatar()
+                    .pipe(
+                        finalize(() => {
+                            this.loadingService.stopLoading();
+                        })
+                    )
+                    .subscribe((avatar) => {
+                        this.store.dispatch(setAvatar({avatar: avatar}))
+                    });
+            }
         })
         this.destroyRef.onDestroy(() => {
             profileSubs.unsubscribe();
@@ -112,13 +127,17 @@ export class MainPageComponent extends BaseComponent implements OnInit {
     }
 
     toggleMenu(accountMenuRef: MatExpansionPanel) {
-        accountMenuRef.close()
         if (this.isMobile) {
             this.sidenav.toggle();
             this.isCollapsed = false; // On mobile, the menu can never be collapsed
         } else {
             this.sidenav.open(); // On desktop/tablet, the menu can never be fully closed
             this.isCollapsed = !this.isCollapsed;
+        }
+        if (this.isCollapsed) {
+            accountMenuRef.close()
+        } else {
+            accountMenuRef.open()
         }
     }
 
@@ -133,11 +152,13 @@ export class MainPageComponent extends BaseComponent implements OnInit {
 
     navigateTo(path: string) {
         if (path === 'buckets') {
-            this.router.navigate([path], { relativeTo: this.route, queryParams: {
+            this.router.navigate([path], {
+                relativeTo: this.route, queryParams: {
                     page: 1,
-                } });
+                }
+            });
             return;
         }
-        this.router.navigate([path], { relativeTo: this.route });
+        this.router.navigate([path], {relativeTo: this.route});
     }
 }

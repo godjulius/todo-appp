@@ -1,3 +1,16 @@
-<div class="h-100 welcome-container" >
-  Welcome
+<div class="h-100 welcome-container">
+    <div id="intro" class="bg-image h-100 shadow-1-strong d-flex align-items-center justify-content-center">
+            <div class="mask">
+                <div class="container d-flex align-items-center justify-content-center text-center h-100">
+                    <div class="text-white" data-mdb-theme="dark">
+                        <h1 class="mb-3">{{ 'WELCOME_HEADER' | translate }}</h1>
+                        <h5 class="mb-4">{{ 'WELCOME_SUB_HEADER' | translate }}</h5>
+                        <a class="btn btn-outline-light btn-lg m-2" data-mdb-ripple-init [routerLink]="'buckets'"
+                            role="button" rel="nofollow" >{{ 'WELCOME_CREATE_TASK' | translate }}</a>
+                        <a class="btn btn-outline-light btn-lg m-2" data-mdb-ripple-init
+                           [routerLink]="'buckets'" role="button">{{ 'WELCOME_TUTORIAL' | translate }}</a>
+                    </div>
+                </div>
+            </div>
+    </div>
 </div>

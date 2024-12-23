@@ -10,11 +10,12 @@ import {MatIconModule} from "@angular/material/icon";
 import {BucketsService} from "../../../shared/services/buckets.service";
 import {finalize} from "rxjs";
 import {BaseComponent} from "../../../core/base.component";
+import {TranslatePipe} from "@ngx-translate/core";
 
 @Component({
     selector: 'app-buckets-edit',
     standalone: true,
-    imports: [CommonModule, MatSlideToggleModule, FormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule],
+    imports: [CommonModule, MatSlideToggleModule, FormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule, TranslatePipe],
     templateUrl: './buckets-edit.component.html',
     styleUrl: './buckets-edit.component.scss',
 })

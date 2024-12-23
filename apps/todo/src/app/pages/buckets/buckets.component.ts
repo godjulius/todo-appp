@@ -11,11 +11,12 @@ import {finalize} from "rxjs";
 import {MatDialog} from "@angular/material/dialog";
 import {BucketsEditComponent} from "./buckets-edit/buckets-edit.component";
 import {CommonSearchComponent} from "../../shared/common-search/common-search.component";
+import {TranslatePipe} from "@ngx-translate/core";
 
 @Component({
     selector: 'app-buckets',
     standalone: true,
-    imports: [CommonModule, MatFormFieldModule, MatIconModule, MatInputModule, MatIconButton, MatPaginatorModule, MatButtonModule, CommonSearchComponent],
+    imports: [CommonModule, MatFormFieldModule, MatIconModule, MatInputModule, MatIconButton, MatPaginatorModule, MatButtonModule, CommonSearchComponent, TranslatePipe],
     templateUrl: './buckets.component.html',
     styleUrl: './buckets.component.scss',
 })

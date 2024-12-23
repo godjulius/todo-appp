@@ -1,6 +1,6 @@
 <div class="bucket-container">
     <mat-form-field class="bucket-edit-line">
-        <mat-label>Title</mat-label>
+        <mat-label>{{ 'TITLE' | translate }}</mat-label>
         <input matInput type="text" [(ngModel)]="title" required #bucketTitle="ngModel">
         @if (title()) {
             <button matSuffix mat-icon-button aria-label="Clear" (click)="title.set('')">
@@ -16,12 +16,12 @@
         >
             <span class="d-flex align-items-center" [ngClass]="isDone() ? 'status-public-color' : 'status-private-color'">
                 @if (isDone()) {
-                    Done
+                    {{ 'COMPLETED' | translate }}
                     <mat-icon class="status-public-color">
                                 assignment_turned_in
                 </mat-icon>
                 } @else {
-                    Pending
+                    {{ 'PENDING' | translate }}
                     <mat-icon class="status-private-color">
                                 pending_actions
                 </mat-icon>
@@ -31,7 +31,7 @@
     </div>
     @if (!isCreate()) {
         <div class="bucket-edit-line">
-            <span>Create time:</span>
+            <span>{{ 'CREATED_AT' | translate }}:</span>
             <span>{{ matData.createdAt || ''  |  date:'short' }}</span>
         </div>
         <div class="bucket-edit-line">
@@ -41,10 +41,10 @@
     }
     <div class="w-100 d-flex justify-content-between bucket-edit-line">
         @if (isCreate()) {
-            <button mat-flat-button (click)="createItem()" [disabled]="bucketTitle.invalid">Create</button>
+            <button mat-flat-button (click)="createItem()" [disabled]="bucketTitle.invalid">{{ 'CREATE' | translate }}</button>
         } @else {
-            <button mat-flat-button (click)="updateItem()" [disabled]="bucketTitle.invalid">Update</button>
-            <button mat-flat-button class="sub-btn" (click)="handleDeleteItem()">Delete</button>
+            <button mat-flat-button (click)="updateItem()" [disabled]="bucketTitle.invalid">{{ 'UPDATE' | translate }}</button>
+            <button mat-flat-button class="sub-btn" (click)="handleDeleteItem()">{{ 'DELETE' | translate }}</button>
         }
     </div>
 </div>

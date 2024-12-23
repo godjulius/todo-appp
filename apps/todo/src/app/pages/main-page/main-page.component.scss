@@ -34,7 +34,7 @@ mat-sidenav-content{
 }
 
 .collapsed {
-  width: 86px;
+  width: 100px;
   //transition: width 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
   //transition: width 0.5s;
 }
@@ -53,4 +53,11 @@ mat-sidenav-content{
 }
 .side-item:hover {
   background-color: var(--primary);
+}
+
+.avatar-container {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    margin-right: 6px;
 }
