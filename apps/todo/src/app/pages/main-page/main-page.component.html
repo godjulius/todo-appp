@@ -1,50 +1,54 @@
 <app-header (toggleMenuEmitter)="toggleMenu(sidebar)"></app-header>
 <mat-sidenav-container autosize>
-  <mat-sidenav #sidenav [ngClass]="!isCollapsed ? 'expanded' : isMobile ? 'expanded' : 'collapsed'" mode="side"
-               [mode]="isMobile ? 'over' : 'side'" [opened]="isMobile ? 'false' : 'true'" class="sidenav-container">
+    <mat-sidenav #sidenav [ngClass]="!isCollapsed ? 'expanded' : isMobile ? 'expanded' : 'collapsed'" mode="side"
+                 [mode]="isMobile ? 'over' : 'side'" [opened]="isMobile ? 'false' : 'true'" class="sidenav-container">
 
-    <div class="account">
-      <mat-expansion-panel #sidebar (opened)="isCollapsed = false" (closed)="isCollapsed = true">
-        <mat-expansion-panel-header>
-          <!--          <mat-panel-title> Me </mat-panel-title>-->
-          <mat-panel-description>
-<!--            <mat-icon>account_circle</mat-icon>-->
-              <img [src]="profile().avatar" alt="avt" class="avatar-container">
-            @if (!isCollapsed) {
-              <span class="text-center line-climb-1">{{ profile().username }}</span>
-            }
-          </mat-panel-description>
-        </mat-expansion-panel-header>
-        {{ profile().email }}
-        <button mat-raised-button (click)="navigateSettings()" style="margin-bottom: 8px;">
-          <mat-icon>settings</mat-icon>
-            {{ 'SIDE_BAR.SETTINGS' | translate }}
-        </button>
-        <button mat-raised-button (click)="logout()">
-          <mat-icon>exit_to_app</mat-icon>
-            {{ 'SIDE_BAR.LOGOUT' | translate }}
-        </button>
-      </mat-expansion-panel>
-    </div>
-    <mat-nav-list class="side-item-container">
-        @for(page of PAGE_LIST; track page.languageKey) {
-            <button mat-list-item
-                    [matTooltip]="page.languageKey | translate"
-                    matTooltipPosition="right"
-                    class="side-item"
-                    (click)="navigateTo(page.path)"
-            >
+        <div class="account">
+            <mat-expansion-panel #sidebar (opened)="isCollapsed = false" (closed)="isCollapsed = true">
+                <mat-expansion-panel-header>
+                    <!--          <mat-panel-title> Me </mat-panel-title>-->
+                    <mat-panel-description class="w-100">
+                        <!--            <mat-icon>account_circle</mat-icon>-->
+                        <img [src]="profile().avatar" alt="avt" class="avatar-container">
+                        @if (!isCollapsed) {
+                            <span
+                                class="text-no-wrap"
+                                [matTooltip]="profile().username"
+                                matTooltipPosition="below"
+                            >{{ profile().username }}</span>
+                        }
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                {{ profile().email }}
+                <button mat-raised-button (click)="navigateSettings()" style="margin-bottom: 8px;">
+                    <mat-icon>settings</mat-icon>
+                    {{ 'SIDE_BAR.SETTINGS' | translate }}
+                </button>
+                <button mat-raised-button (click)="logout()">
+                    <mat-icon>exit_to_app</mat-icon>
+                    {{ 'SIDE_BAR.LOGOUT' | translate }}
+                </button>
+            </mat-expansion-panel>
+        </div>
+        <mat-nav-list class="side-item-container">
+            @for (page of PAGE_LIST; track page.languageKey) {
+                <button mat-list-item
+                        [matTooltip]="page.languageKey | translate"
+                        matTooltipPosition="right"
+                        class="side-item"
+                        (click)="navigateTo(page.path)"
+                >
         <span class="entry">
           <mat-icon
           >{{ page.icon }}</mat-icon>
           <span *ngIf="!isCollapsed">{{ page.languageKey | translate }}</span>
         </span>
-            </button>
-        }
+                </button>
+            }
 
-    </mat-nav-list>
-  </mat-sidenav>
-  <mat-sidenav-content>
-    <router-outlet></router-outlet>
-  </mat-sidenav-content>
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
 </mat-sidenav-container>

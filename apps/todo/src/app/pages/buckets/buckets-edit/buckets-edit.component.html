@@ -12,7 +12,7 @@
 
         <mat-slide-toggle
             [(ngModel)]="isPublic"
-
+            #bucketStatus="ngModel"
         >
             <span [ngClass]="isPublic ? 'status-public-color' : 'status-private-color'">
             {{ (isPublic ? 'PUBLIC' : 'PRIVATE') | translate }}
@@ -33,7 +33,7 @@
         @if (isCreate) {
             <button mat-flat-button (click)="createBucket()" [disabled]="bucketTitle.invalid">{{ 'CREATE' | translate }}</button>
         } @else {
-            <button mat-flat-button (click)="updateBucket()" [disabled]="bucketTitle.invalid">{{ 'UPDATE' | translate }}</button>
+            <button mat-flat-button (click)="updateBucket()" [disabled]="bucketTitle.invalid || (!bucketTitle.dirty && !bucketStatus.dirty)">{{ 'UPDATE' | translate }}</button>
             <button mat-flat-button class="sub-btn" (click)="handleDeleteBucket()">{{ 'DELETE' | translate }}</button>
         }
     </div>

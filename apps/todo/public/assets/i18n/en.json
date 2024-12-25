@@ -36,5 +36,10 @@
     "ALL_TASKS": "All tasks",
     "Search_task": "Search task",
     "TIME": "Time",
-    "TASK_ID": "Task ID"
+    "TASK_ID": "Task ID",
+    "SUCCESS": "Success",
+    "Updated_Successfully": "Updated Successfully",
+    "Deleted_Successfully": "Deleted Successfully",
+    "Created_Successfully": "Created Successfully",
+    "TASK": "Task"
 }

@@ -53,7 +53,9 @@ export class BucketsEditComponent extends BaseComponent{
             )
             .subscribe(
             (res: any) => {
-                this.toastMsgService.addSuccess({ title: 'Success', message: `Bucket "${this.title}" updated successfully` })
+                const title_ = (this.translateService.instant('SUCCESS'));
+                const message_ = (this.translateService.instant('Updated_Successfully'));
+                this.toastMsgService.addSuccess({ title: title_, message: `Bucket "${this.title}" ${message_}` })
                 this.dialogRef.close('update');
             }
         )
@@ -76,7 +78,9 @@ export class BucketsEditComponent extends BaseComponent{
             )
             .subscribe(
             (res: any) => {
-                this.toastMsgService.addSuccess({ title: 'Success', message: `Bucket "${this.title}" created successfully with id ${res.data.id}` })
+                const title_ = (this.translateService.instant('SUCCESS'));
+                const message_ = (this.translateService.instant('Created_Successfully'));
+                this.toastMsgService.addSuccess({ title: title_, message: `Bucket "${this.title}" ${message_}` })
                 this.dialogRef.close(true);
             }
         )
@@ -95,7 +99,9 @@ export class BucketsEditComponent extends BaseComponent{
             )
             .subscribe(
             (res: any) => {
-                this.toastMsgService.addSuccess({ title: 'Success', message: `Bucket "${this.title}" deleted successfully` })
+                const title_ = (this.translateService.instant('SUCCESS'));
+                const message_ = (this.translateService.instant('Deleted_Successfully'));
+                this.toastMsgService.addSuccess({ title: title_, message: `Bucket "${this.title}" ${message_}` })
                 this.dialogRef.close('delete');
             }
         )

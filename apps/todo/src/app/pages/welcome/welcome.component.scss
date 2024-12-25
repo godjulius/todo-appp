@@ -3,3 +3,13 @@
     color: white;
     text-align: center;
 }
+
+.welcome-primary-btn {
+    border: none;
+    background-color: rgba(219, 75, 44, 0.9);
+}
+
+.welcome-primary-btn:hover {
+    background-color: rgba(252, 44, 0, 1);
+    color: white;
+}

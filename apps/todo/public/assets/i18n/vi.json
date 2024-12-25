@@ -36,5 +36,10 @@
     "ALL_TASKS": "Tất cả công việc",
     "Search_task": "Tìm kiếm công việc",
     "TIME": "Thời gian",
-    "TASK_ID": "ID công việc"
+    "TASK_ID": "ID công việc",
+    "SUCCESS": "Thành công",
+    "Updated_Successfully": "Đã cập nhật thành công",
+    "Deleted_Successfully": "Đã xóa thành công",
+    "Created_Successfully": "Đã tạo thành công",
+    "TASK": "Công việc"
 }

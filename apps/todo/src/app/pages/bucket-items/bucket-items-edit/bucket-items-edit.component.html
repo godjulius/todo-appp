@@ -12,7 +12,7 @@
 
         <mat-slide-toggle
             [(ngModel)]="isDone"
-
+            #taskStatus="ngModel"
         >
             <span class="d-flex align-items-center" [ngClass]="isDone() ? 'status-public-color' : 'status-private-color'">
                 @if (isDone()) {
@@ -43,7 +43,7 @@
         @if (isCreate()) {
             <button mat-flat-button (click)="createItem()" [disabled]="bucketTitle.invalid">{{ 'CREATE' | translate }}</button>
         } @else {
-            <button mat-flat-button (click)="updateItem()" [disabled]="bucketTitle.invalid">{{ 'UPDATE' | translate }}</button>
+            <button mat-flat-button (click)="updateItem()" [disabled]="bucketTitle.invalid || (!bucketTitle.dirty && !taskStatus.dirty)">{{ 'UPDATE' | translate }}</button>
             <button mat-flat-button class="sub-btn" (click)="handleDeleteItem()">{{ 'DELETE' | translate }}</button>
         }
     </div>

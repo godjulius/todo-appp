@@ -50,7 +50,10 @@ export class BucketItemsEditComponent extends BaseComponent {
             )
             .subscribe((res: any) => {
                 if (res) {
-                    this.toastMsgService.addSuccess({ title: 'Success', message: `Item "${this.title()}" created successfully with id ${res.data.id}` })
+                    const title_ = (this.translateService.instant('SUCCESS'));
+                    const message_ = (this.translateService.instant('Created_Successfully'));
+                    const task_ = this.translateService.instant('TASK');
+                    this.toastMsgService.addSuccess({ title: title_, message: `${task_} "${this.title()}" ${message_}, id: ${res.data.id}` })
                     this.dialogRef.close(true);
                 }
             })
@@ -73,7 +76,10 @@ export class BucketItemsEditComponent extends BaseComponent {
             )
             .subscribe((res: any) => {
                 if (res) {
-                    this.toastMsgService.addSuccess({ title: 'Success', message: `Item "${this.matData.id}" updated successfully` })
+                    const title_ = (this.translateService.instant('SUCCESS'));
+                    const message_ = (this.translateService.instant('Updated_Successfully'));
+                    const task_ = this.translateService.instant('TASK');
+                    this.toastMsgService.addSuccess({ title: title_, message: `${task_} "${this.matData.id}" ${message_}` })
                     this.dialogRef.close('update');
                 }
             })
@@ -93,7 +99,10 @@ export class BucketItemsEditComponent extends BaseComponent {
             )
             .subscribe((res) => {
                 if (res) {
-                    this.toastMsgService.addSuccess({ title: 'Success', message: `Item "${this.matData.id}" deleted successfully` })
+                    const title_ = (this.translateService.instant('SUCCESS'));
+                    const message_ = (this.translateService.instant('Deleted_Successfully'));
+                    const task_ = this.translateService.instant('TASK');
+                    this.toastMsgService.addSuccess({ title: title_, message: `${task_} "${this.matData.id}" ${message_}` })
                     this.dialogRef.close('delete');
                 }
             })

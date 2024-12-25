@@ -36,3 +36,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     overflow: hidden !important;
     display: -webkit-box !important;
 }
+
+.text-no-wrap {
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}

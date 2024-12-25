@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, DestroyRef, inject, OnInit, signal, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, inject, OnInit, signal, ViewChild} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {MatButtonModule} from "@angular/material/button";
 import {ActivatedRoute, Router, RouterOutlet} from "@angular/router";
@@ -107,7 +107,6 @@ export class MainPageComponent extends BaseComponent implements OnInit, AfterVie
             avatarSubs.unsubscribe();
         })
         const profileSubs = this.profile$.subscribe((profile) => {
-            console.log('Profile', profile);
             this.profile.set(profile);
             if (profile.avatar === '') {
                 this.accountService.getAvatar()

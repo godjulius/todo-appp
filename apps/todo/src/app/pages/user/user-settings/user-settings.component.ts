@@ -1,4 +1,4 @@
-import {Component, inject, OnInit, signal} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {MatError, MatFormField, MatLabel} from "@angular/material/form-field";
@@ -11,7 +11,6 @@ import {Store} from "@ngrx/store";
 import {updateProfile} from "../../../store/user.action";
 import {BaseComponent} from "../../../core/base.component";
 import {finalize} from "rxjs";
-import { ToastMsgType } from '../../../shared/toast-msg/toast-msg.service';
 
 @Component({
     selector: 'app-user-settings',
@@ -75,7 +74,9 @@ export class UserSettingsComponent extends BaseComponent implements OnInit {
                 .pipe(
                     finalize(() => {
                         this.loadingService.stopLoading();
-                        this.toastMsgService.addSuccess({title: 'Success', message: 'Update profile successfully'});
+                        const title_ = (this.translateService.instant('SUCCESS'));
+                        const message_ = (this.translateService.instant('Updated_Successfully'));
+                        this.toastMsgService.addSuccess({title: title_, message: message_});
                         this.dialogRef.close(true);
                     })
                 )
