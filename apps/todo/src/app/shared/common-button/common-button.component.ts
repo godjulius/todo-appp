@@ -2,8 +2,7 @@ import {
     AfterContentInit,
     Component,
     ContentChild,
-    HostBinding, Input,
-    input, OnChanges, SimpleChanges
+    input
 } from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {MatProgressSpinner} from "@angular/material/progress-spinner";
@@ -26,7 +25,7 @@ import {MatProgressSpinner} from "@angular/material/progress-spinner";
     },
 
 })
-export class CommonButtonComponent implements AfterContentInit, OnChanges {
+export class CommonButtonComponent implements AfterContentInit {
 
     @ContentChild('prefixIcon') prefixIcon: any
     @ContentChild('postfixIcon') postfixIcon: any
@@ -35,15 +34,6 @@ export class CommonButtonComponent implements AfterContentInit, OnChanges {
     size = input('md')
     constructor() {
         //
-    }
-
-    ngOnChanges(changes: SimpleChanges) {
-        if(changes['variant'] && !changes['variant'].firstChange) {
-            console.log(changes['variant'])
-        }
-        if(changes['size'] && !changes['size'].firstChange) {
-            console.log(changes['size'])
-        }
     }
 
     ngAfterContentInit() {
