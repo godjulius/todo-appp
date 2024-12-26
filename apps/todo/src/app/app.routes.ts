@@ -3,6 +3,7 @@ import {SignInComponent} from "./sign-in/sign-in.component";
 import {AuthGuard, LoginGuard} from "./guards/auth.guard";
 import {UserComponent} from "./pages/user/user.component";
 import {NotfoundComponent} from "./pages/notfound/notfound.component";
+import {DemoCommonButtonComponent} from "./shared/common-button/demo-common-button/demo-common-button.component";
 
 export const appRoutes: Route[] = [
     {
@@ -26,6 +27,10 @@ export const appRoutes: Route[] = [
     //     }
     //   ]
     // },
+    {
+      path: 'demoCommonButton',
+      component: DemoCommonButtonComponent
+    },
     {
         path: 'main',
         loadChildren: () => import('./pages/main.module').then(m => m.MainModule),

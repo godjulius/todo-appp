@@ -1,0 +1,13 @@
+.common-button--loading {
+    position: relative;
+    pointer-events: none;
+}
+
+.common-button-ic-loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: inherit;
+    color: white;
+}

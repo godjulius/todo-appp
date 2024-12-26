@@ -1,0 +1,67 @@
+<div class="d-flex flex-column justify-content-center align-items-center vw-100 vh-100">
+    <div class="demo-ui w-100 d-flex flex-column justify-content-center align-items-center">
+        <div>
+
+            <div class="mb-2">
+                <button class="btn btn-outline-primary" (click)="toggleLoadingBtn()">
+                    toggle loading
+                </button>
+                loading: {{ isLoading }}
+            </div>
+            <div class="mb-2">
+                <button class="btn btn-outline-primary" (click)="toggleLeftIcon()">
+                    toggle left icon
+                </button>
+                isDisplayLeftIcon: {{ isDisplayLeftIcon() }}
+            </div>
+
+            <div class="mb-2">
+                <button class="btn btn-outline-primary" (click)="toggleRightIcon()">
+                    toggle right icon
+                </button>
+                isDisplayRightIcon: {{ isDisplayLeftIcon() }}
+            </div>
+
+            <div class="mb-2">
+                <button class="btn btn-outline-primary" (click)="toggleDisable()">
+                    toggle disable
+                </button>
+                isDisabled: {{ isDisabled() }}
+            </div>
+        </div>
+
+        <div class="mb-2">
+            <mat-form-field class="mr-3">
+                <mat-label>Variants</mat-label>
+                <mat-select [(ngModel)]="variant">
+                    <mat-option value="primary">primary</mat-option>
+                    <mat-option value="secondary">secondary</mat-option>
+                    <mat-option value="outline">outline-primary</mat-option>
+                    <mat-option value="link">link</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Size</mat-label>
+                <mat-select [(ngModel)]="size">
+                    <mat-option value="sm">Small</mat-option>
+                    <mat-option value="md">Medium</mat-option>
+                    <mat-option value="lg">Large</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <button appCommonButton addLoading="true" [isLoading]="isLoading" (click)="toggleLoadingBtn()"
+                [variant]="variant()" [size]="size()" [disabled]="isDisabled()"
+        >
+            @if (isDisplayLeftIcon()) {
+                <mat-icon prefixIcon #prefixIcon (click)="testFn($event )">add</mat-icon>
+            }
+            Load main
+            @if (isDisplayRightIcon()) {
+                <mat-icon postfixIcon #postfixIcon>home</mat-icon>
+            }
+        </button>
+
+
+    </div>
+</div>

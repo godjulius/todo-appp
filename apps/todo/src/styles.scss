@@ -3,7 +3,7 @@
 //@import "bootstrap/dist/css/bootstrap.css";
 @import url(https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap);
 @import "colors.scss";
-
+@import "apps/todo/src/app/shared/common-button/common-button.component.scss";
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
@@ -41,4 +41,8 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     white-space: nowrap !important;
     overflow: hidden !important;
     text-overflow: ellipsis !important;
+}
+
+.gap-2px {
+    gap: 2px;
 }

@@ -1,0 +1,10 @@
+@if (isLoading()) {
+    <ng-content select="[buttonLoading]">
+        <div class="common-button-ic-loading w-100">
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        </div>
+    </ng-content>
+}
+<ng-content select="[prefixIcon]"></ng-content>
+<ng-content></ng-content>
+<ng-content select="[postfixIcon]"></ng-content>

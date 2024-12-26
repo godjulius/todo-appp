@@ -8,9 +8,10 @@ import {MatInputModule} from "@angular/material/input";
 import {MatButtonModule} from "@angular/material/button";
 import {MatIconModule} from "@angular/material/icon";
 import {BucketsService} from "../../../shared/services/buckets.service";
-import {finalize} from "rxjs";
+import {finalize, takeUntil} from "rxjs";
 import {BaseComponent} from "../../../core/base.component";
 import {TranslatePipe} from "@ngx-translate/core";
+import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 
 @Component({
     selector: 'app-buckets-edit',
@@ -74,7 +75,8 @@ export class BucketsEditComponent extends BaseComponent{
             .pipe(
                 finalize(() => {
                     this.loadingService.stopLoading()
-                })
+                }),
+                takeUntilDestroyed(this.destroyRef)
             )
             .subscribe(
             (res: any) => {
@@ -84,9 +86,9 @@ export class BucketsEditComponent extends BaseComponent{
                 this.dialogRef.close(true);
             }
         )
-        this.destroyRef.onDestroy(() => {
-            createSubs.unsubscribe();
-        })
+        // this.destroyRef.onDestroy(() => {
+        //     createSubs.unsubscribe();
+        // })
     }
 
     handleDeleteBucket() {
