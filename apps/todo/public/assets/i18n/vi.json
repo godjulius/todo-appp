@@ -41,5 +41,7 @@
     "Updated_Successfully": "Đã cập nhật thành công",
     "Deleted_Successfully": "Đã xóa thành công",
     "Created_Successfully": "Đã tạo thành công",
-    "TASK": "Công việc"
+    "TASK": "Công việc",
+    "ERROR_Required" : "{{fieldName}} không được để trống",
+    "ERROR_PasswordMismatch": "Mật khẩu không khớp"
 }

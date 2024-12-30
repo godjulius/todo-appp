@@ -20,6 +20,7 @@ import {AccountService} from "../shared/services/account.service";
 import {finalize} from "rxjs";
 import {AbstractControl, ValidationErrors, ValidatorFn} from '@angular/forms';
 import {ToastMsgType} from "../shared/toast-msg/toast-msg.service";
+import {ErrorsDirective} from "../shared/directives/errors.directive";
 
 @Component({
     selector: 'app-sign-in',
@@ -27,7 +28,7 @@ import {ToastMsgType} from "../shared/toast-msg/toast-msg.service";
     imports: [CommonModule,
         ReactiveFormsModule,
         MatButtonModule,
-        MatFormFieldModule, MatInputModule, MatTabGroup, MatTab, TranslatePipe, MatSelect, FormsModule, MatOption, MatIcon, MatTooltip],
+        MatFormFieldModule, MatInputModule, MatTabGroup, MatTab, TranslatePipe, MatSelect, FormsModule, MatOption, MatIcon, MatTooltip, ErrorsDirective],
     templateUrl: './sign-in.component.html',
     styleUrl: './sign-in.component.scss',
 })

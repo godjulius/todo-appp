@@ -34,11 +34,11 @@
                 <mat-form-field class="loggin-field" appearance="outline">
                   <mat-label>{{ 'EMAIL' | translate }}</mat-label>
                   <input type="email" matInput formControlName="email">
+                  @if (loginForm.get('email')?.hasError('email')) {
+                    <mat-error appInputErrors>Invalid email</mat-error>
+                  }
                   @if (loginForm.get('email')?.hasError('required')) {
                     <mat-error>Email is required</mat-error>
-                  }
-                  @if (loginForm.get('email')?.hasError('email')) {
-                    <mat-error>Invalid email</mat-error>
                   }
                 </mat-form-field>
               </div>
@@ -103,10 +103,9 @@
                 <mat-form-field class="loggin-field" appearance="outline">
                   <mat-label>Confirm Password</mat-label>
                   <input type="password" matInput formControlName="confirmPasswordSignUp" [autocomplete]="false">
-                  <mat-error *ngIf="signupForm.get('confirmPasswordSignUp')?.hasError('required')">Password is required</mat-error>
-                  @if (signupForm.get('confirmPasswordSignUp')?.hasError('passwordMismatch')) {
-                    <mat-error>Passwords do not match</mat-error>
-                  }
+                    @if (signupForm.get('confirmPasswordSignUp')?.errors) {
+                        <mat-error appInputErrors [errors]="signupForm.get('confirmPasswordSignUp')!.errors" [fieldName]="'Confirm_Password' | translate"></mat-error>
+                    }
                 </mat-form-field>
               </div>
               <div class="d-flex justify-content-between align-items-center">

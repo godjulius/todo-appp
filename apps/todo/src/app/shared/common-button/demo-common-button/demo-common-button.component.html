@@ -50,7 +50,7 @@
             </mat-form-field>
         </div>
 
-        <button appCommonButton addLoading="true" [isLoading]="isLoading" (click)="toggleLoadingBtn()"
+        <button appCommonButton [isLoading]="isLoading" (click)="toggleLoadingBtn()"
                 [variant]="variant()" [size]="size()" [disabled]="isDisabled()"
         >
             @if (isDisplayLeftIcon()) {

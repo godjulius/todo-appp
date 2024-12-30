@@ -9,5 +9,21 @@
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: inherit;
+    color: var(--bs-btn-color);
+}
+
+.btn-outline-primary .common-button-ic-loading {
+    background-color: var(--bs-btn-hover-bg);
     color: white;
+}
+
+.btn-outline-primary[ng-reflect-is-loading="true"] {
+    background-color: var(--bs-btn-hover-bg);
+    color: white;
+}
+
+.btn-link .common-button-ic-loading {
+    background-color: inherit;
+    color: var(--bs-link-color);
+    z-index: 10;
 }

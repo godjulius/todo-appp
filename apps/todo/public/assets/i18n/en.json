@@ -41,5 +41,7 @@
     "Updated_Successfully": "Updated Successfully",
     "Deleted_Successfully": "Deleted Successfully",
     "Created_Successfully": "Created Successfully",
-    "TASK": "Task"
+    "TASK": "Task",
+    "ERROR_Required" : "{{fieldName}} is required",
+    "ERROR_PasswordMismatch": "Password mismatch"
 }
