@@ -19,6 +19,7 @@ export class ErrorsDirective implements OnChanges {
     ngOnChanges(changes: SimpleChanges) {
         if (changes['errors']) {
             if (this.errors()) {
+                console.log(this.errors())
                 const errorKeys = Object.keys(this.errors() || {});
                 switch (errorKeys[0]) {
                     case 'required':
@@ -28,7 +29,6 @@ export class ErrorsDirective implements OnChanges {
                                 takeUntilDestroyed(this.destroyRef)
                             )
                             .subscribe((res) => {
-                                console.log(res)
                                 this.elementRef.nativeElement.innerText = res
                             })
                         break;
@@ -36,6 +36,7 @@ export class ErrorsDirective implements OnChanges {
                         this.elementRef.nativeElement.innerText = this.translateService.instant('ERROR_PasswordMismatch')
                         break;
                     default:
+                        this.elementRef.nativeElement.innerText = errorKeys[0] + ' Error!'
                 }
             }
         }

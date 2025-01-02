@@ -37,7 +37,6 @@ export class CommonButtonComponent implements AfterContentInit {
     }
 
     ngAfterContentInit() {
-        console.log(1)
         if (this.prefixIcon) {
             console.log(this.prefixIcon)
         }

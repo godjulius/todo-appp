@@ -1,1 +1,37 @@
-<p>demo-common-input works!</p>
+<div class="vw-100 vh-100 d-flex justify-content-center align-items-center">
+    <div style="margin-right: 16px;">
+        demo input
+        <i class="bi bi-envelope-at"></i>
+    </div>
+    <form (ngSubmit)="handleSubmit()" [formGroup]="loginForm" class="d-flex flex-column gap-5">
+        <app-common-input type="email" formControlName="email" [postfix]="postfix"
+                          [postfixRef]="postfixRef" postfix="@gmail.com">
+            <mat-icon inputPreIcon>email</mat-icon>
+            <!--            <mat-icon inputPostIcon (click)="openDialog()" style="cursor: pointer;">add</mat-icon>-->
+        </app-common-input>
+
+        <app-common-input [type]="passwordType" formControlName="password">
+            <mat-icon inputPreIcon>key</mat-icon>
+            @if (passwordType === 'password') {
+                <mat-icon inputPostIcon (click)="toggleVisbilityPass()" style="cursor: pointer;">visibility</mat-icon>
+            } @else {
+                <mat-icon inputPostIcon (click)="toggleVisbilityPass()" style="cursor: pointer;">visibility_off</mat-icon>
+            }
+        </app-common-input>
+
+        <!--        <input type="email" formControlName="email">-->
+        <!--        <input type="password" formControlName="password">-->
+
+        <button type="submit" appCommonButton
+                [variant]="'outline'">Submit
+        </button>
+    </form>
+</div>
+
+<ng-template #postfixRef>
+    <select class="form-select" aria-label="Default select example" style="width: fit-content" autocomplete="off" (change)="handleInput($event)">
+        <option value="@gmail.com">&#64;gmail.com</option>
+        <option value="@yahoo.com">&#64;yahoo.com</option>
+        <option value="@apple.com">&#64;apple.com</option>
+    </select>
+</ng-template>

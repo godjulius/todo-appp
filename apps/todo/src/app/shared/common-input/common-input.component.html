@@ -1,1 +1,22 @@
-<p>common-input works!</p>
+<div class="common-input-container" [ngClass]="{
+        'error-border': control && control.errors && control.dirty
+      }">
+    <ng-content select="[inputPreIcon]"></ng-content>
+    <input
+        #input
+        [type]="type()"
+        class="flex-grow-1"
+        [placeholder]="placeholder()"
+        [ngClass]="{ disabled: disabled() }"
+        (input)="onInput($event)"
+        (focusout)="onFocusOut()"
+    >
+    <mat-icon class="common-input-clear-icon" (click)="clearValue()">cancel</mat-icon>
+    @if (postfixRef) {
+        <ng-container *ngTemplateOutlet="postfixRef"></ng-container>
+    }
+    <ng-content select="[inputPostIcon]"></ng-content>
+</div>
+@if (control && control.errors && control.dirty) {
+    <mat-error appInputErrors [errors]="control.errors" [fieldName]="'email' | translate"></mat-error>
+}
