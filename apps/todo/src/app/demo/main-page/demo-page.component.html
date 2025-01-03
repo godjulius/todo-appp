@@ -1,0 +1,28 @@
+<mat-sidenav-container autosize>
+    <mat-sidenav #sidenav [ngClass]="!isCollapsed ? 'expanded' : isMobile ? 'expanded' : 'collapsed'" mode="side"
+                 [mode]="isMobile ? 'over' : 'side'" [opened]="isMobile ? 'false' : 'true'" class="sidenav-container">
+        <button appCommonButton variant="outline" (click)="toggleMenu()">
+            Toggle sidebar
+        </button>
+        <mat-nav-list class="side-item-container">
+            @for (page of PAGE_LIST; track page.languageKey) {
+                <button mat-list-item
+                        [matTooltip]="page.languageKey | translate"
+                        matTooltipPosition="right"
+                        class="side-item"
+                        (click)="navigateTo(page.path)"
+                >
+        <span class="entry">
+          <mat-icon
+          >{{ page.icon }}</mat-icon>
+          <span *ngIf="!isCollapsed">{{ page.languageKey | translate }}</span>
+        </span>
+                </button>
+            }
+
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>

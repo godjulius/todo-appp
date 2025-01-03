@@ -1,0 +1,63 @@
+h2 {padding: 1rem;}
+
+mat-sidenav-container {
+  height:100%;
+}
+
+// Move the content down so that it won't be hidden by the toolbar
+mat-sidenav {
+  padding-top: 3.5rem;
+  @media screen and (min-width: 600px) {
+    padding-top: 4rem;
+  }
+
+  .entry{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding:0.75rem;
+  }
+}
+
+// Move the content down so that it won't be hidden by the toolbar
+mat-sidenav-content{
+  padding-top: 3.5rem;
+  @media screen and (min-width: 600px) {
+    padding-top: 4rem;
+  }
+}
+
+.expanded {
+  width: 250px;
+  //transition: width 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  //transition: width 0.5s;
+}
+
+.collapsed {
+  width: 100px;
+  //transition: width 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  //transition: width 0.5s;
+}
+
+.sidenav-container {
+  box-shadow: #2c1f50 0px 2px 4px;
+}
+
+.side-item-container {
+  padding: 0;
+}
+
+.side-item {
+  border: none;
+  border-radius: 0 !important;
+}
+.side-item:hover {
+  background-color: var(--primary);
+}
+
+.avatar-container {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    margin-right: 6px;
+}

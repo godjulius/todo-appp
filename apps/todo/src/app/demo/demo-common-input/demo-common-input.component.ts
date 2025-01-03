@@ -1,11 +1,11 @@
 import {Component, inject} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {CommonInputComponent} from "../common-input.component";
+import {CommonInputComponent} from "../../shared/common-input/common-input.component";
 import {MatIcon} from "@angular/material/icon";
 import {MatDialog} from "@angular/material/dialog";
-import {BucketsEditComponent} from "../../../pages/buckets/buckets-edit/buckets-edit.component";
+import {BucketsEditComponent} from "../../pages/buckets/buckets-edit/buckets-edit.component";
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
-import {CommonButtonComponent} from "../../common-button/common-button.component";
+import {CommonButtonComponent} from "../../shared/common-button/common-button.component";
 import {MatSelectModule} from '@angular/material/select';
 import {MatFormFieldModule} from '@angular/material/form-field';
 
@@ -22,16 +22,18 @@ export class DemoCommonInputComponent {
     loginForm = new FormGroup({
         email: new FormControl('', [Validators.required, Validators.email]),
         password: new FormControl('', [Validators.required]),
+        confirmPassword: new FormControl('', [Validators.required]),
     });
     passwordType = 'password';
     postfix = '@gmail.com';
+    formValue: any;
     openDialog() {
         this.dialog.open(BucketsEditComponent);
     }
 
     handleSubmit() {
         console.log(this.loginForm.value);
-        console.log(this.loginForm.get('email')?.errors);
+        this.formValue = this.loginForm.value;
     }
 
     handleInput(event: any) {

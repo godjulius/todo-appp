@@ -1,6 +1,6 @@
 import {Component, signal} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {CommonButtonComponent} from "../common-button.component";
+import {CommonButtonComponent} from "../../shared/common-button/common-button.component";
 import {MatIcon} from "@angular/material/icon";
 import {MatSelectModule} from "@angular/material/select";
 import {FormsModule} from "@angular/forms";

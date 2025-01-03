@@ -1,15 +1,15 @@
 import {Route} from '@angular/router';
 import {SignInComponent} from "./sign-in/sign-in.component";
 import {AuthGuard, LoginGuard} from "./guards/auth.guard";
-import {UserComponent} from "./pages/user/user.component";
 import {NotfoundComponent} from "./pages/notfound/notfound.component";
-import {DemoCommonButtonComponent} from "./shared/common-button/demo-common-button/demo-common-button.component";
-import {DemoCommonInputComponent} from "./shared/common-input/demo-common-input/demo-common-input.component";
+import {DemoCommonButtonComponent} from "./demo/demo-common-button/demo-common-button.component";
+import {DemoCommonInputComponent} from "./demo/demo-common-input/demo-common-input.component";
+import {DemoModule} from "./demo/demo.module";
 
 export const appRoutes: Route[] = [
     {
         path: '',
-        redirectTo: '/main',
+        redirectTo: '/login',
         pathMatch: 'full'
     },
     {
@@ -29,12 +29,16 @@ export const appRoutes: Route[] = [
     //   ]
     // },
     {
-      path: 'demoCommonButton',
-      component: DemoCommonButtonComponent
+        path: 'demoCommonButton',
+        component: DemoCommonButtonComponent
     },
     {
-      path: 'demoInput',
-      component: DemoCommonInputComponent
+        path: 'demoInput',
+        component: DemoCommonInputComponent
+    },
+    {
+        path: 'demo',
+        loadChildren: () => import('./demo/demo.module').then(m => m.DemoModule),
     },
     {
         path: 'main',

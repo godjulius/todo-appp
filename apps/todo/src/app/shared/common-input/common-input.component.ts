@@ -1,4 +1,14 @@
-import {AfterViewInit, Component, ElementRef, Input, input, OnChanges, SimpleChanges, ViewChild} from '@angular/core';
+import {
+    AfterViewInit,
+    Component,
+    ElementRef,
+    Input,
+    input,
+    OnChanges,
+    SimpleChanges,
+    TemplateRef,
+    ViewChild
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {ControlValueAccessor, NgControl, ReactiveFormsModule} from "@angular/forms";
@@ -16,10 +26,13 @@ import {TranslatePipe} from "@ngx-translate/core";
 })
 export class CommonInputComponent implements ControlValueAccessor, AfterViewInit, OnChanges {
     type = input<string>('email');
-    placeholder = input<string>('Enter your email');
+    placeholder = input<string>('');
     disabled = input<boolean>(false);
     postfix = input<string>('');
-    @Input() postfixRef: any;
+    for = input<string>('');
+    labelName = input<string>('');
+    required = input<boolean>(false);
+    @Input() postfixRef: TemplateRef<any> | undefined;
     @ViewChild('input', { static: true }) inputRef: ElementRef | undefined;
 
     value = '';
@@ -34,7 +47,7 @@ export class CommonInputComponent implements ControlValueAccessor, AfterViewInit
             if (this.inputRef) {
                 this.inputRef.nativeElement.value = currentValue;
             }
-            this.value = currentValue + changes['postfix'].currentValue;
+            this.value = currentValue ? currentValue + changes['postfix'].currentValue : '';
             this.onChange(this.value);
             this.onChange(this.value);
             this.onTouch();
@@ -57,11 +70,11 @@ export class CommonInputComponent implements ControlValueAccessor, AfterViewInit
         }
     }
 
-    registerOnChange(fn: any): void {
+    registerOnChange(fn: never): void {
         this.onChange = fn;
     }
 
-    registerOnTouched(fn: any): void {
+    registerOnTouched(fn: never): void {
         this.onTouch = fn;
     }
 
@@ -75,17 +88,22 @@ export class CommonInputComponent implements ControlValueAccessor, AfterViewInit
         this.onTouch();
     }
 
-    onInput(event: any): void {
-        this.value = event.target.value + this.postfix();
-        if (event.target.value === '') {
+    onInput(event: Event): void {
+        if (event && event.target) {
+        this.value = (event.target as HTMLInputElement).value + this.postfix();
+        if ((event.target as HTMLInputElement).value === '') {
             this.value = '';
         }
         this.onChange(this.value);
         this.onTouch();
+        }
     }
 
     clearValue() {
-        this.inputRef!.nativeElement.value = '';
+        if (this.inputRef) {
+
+            this.inputRef.nativeElement.value = '';
+        }
         this.value = '';
         this.onChange(this.value);
         this.onTouch();
