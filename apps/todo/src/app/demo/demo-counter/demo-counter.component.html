@@ -1,0 +1,17 @@
+<div class="d-flex flex-column justify-content-center align-items-center w-100 h-100 gap-3">
+    <h3>Countdown timer</h3>
+    <div class=>
+        <label>Enter time in seconds</label>
+        <input type="number" [(ngModel)]="enteredTime" placeholder="Enter time in milliseconds" class="form-control">
+    </div>
+    <div style="width: 400px">
+        <app-counter #counter1 [millisecond]="enteredTime * 1000"></app-counter>
+    </div>
+    <div class="d-flex gap-3">
+        <button appCommonButton variant="primary" (click)="start()">Start</button>
+        <button appCommonButton variant="primary" (click)="handlePauseResume()">
+            {{ !counter1.isRunning ? 'Resume' : 'Pause' }}
+        </button>
+        <button appCommonButton variant="primary" (click)="stop()">Stop</button>
+    </div>
+</div>

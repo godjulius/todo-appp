@@ -3,6 +3,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {DemoCommonButtonComponent} from "./demo-common-button/demo-common-button.component";
 import {DemoCommonInputComponent} from "./demo-common-input/demo-common-input.component";
 import {DemoPageComponent} from "./main-page/demo-page.component";
+import {DemoCounterComponent} from "./demo-counter/demo-counter.component";
 
 const routes: Routes = [
     {
@@ -16,6 +17,10 @@ const routes: Routes = [
             {
                 path: 'input',
                 component: DemoCommonInputComponent,
+            },
+            {
+                path: 'counter',
+                component: DemoCounterComponent,
             },
         ]
     }

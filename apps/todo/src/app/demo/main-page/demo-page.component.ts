@@ -62,6 +62,11 @@ export class DemoPageComponent extends BaseComponent implements OnInit {
             languageKey: 'Input',
             path: 'input',
             icon: 'home',
+        },
+        {
+            languageKey: 'counter',
+            path: 'counter',
+            icon: 'watch',
         }
     ]
     constructor(

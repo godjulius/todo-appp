@@ -30,7 +30,7 @@ export class CommonButtonComponent implements AfterContentInit {
     @ContentChild('prefixIcon') prefixIcon: any
     @ContentChild('postfixIcon') postfixIcon: any
     isLoading = input(false)
-    variant = input('primary')
+    variant = input<('primary' | 'secondary' | 'outline' | 'link' | string)>('primary')
     size = input('md')
     constructor() {
         //
@@ -40,7 +40,6 @@ export class CommonButtonComponent implements AfterContentInit {
         if (this.prefixIcon) {
             console.log(this.prefixIcon)
         }
-        console.log(this)
 
     }
 
@@ -54,7 +53,7 @@ const variantsMaps = {
     'secondary': 'secondary',
     'outline': 'outline',
     'link': 'link',
-}
+} as const
 
 const sizesMaps = {
     'sm': 'sm',
